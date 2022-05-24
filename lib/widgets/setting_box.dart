@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:online_course/theme/color.dart';
+import 'package:mentor_mentee_connecting/theme/color.dart';
 
 class SettingBox extends StatelessWidget {
-  SettingBox({ Key? key, required this.title, required this.icon, this.color = darker }) : super(key: key);
+  SettingBox(
+      {Key? key, required this.title, required this.icon, this.color = darker})
+      : super(key: key);
   final title;
   final String icon;
   final Color color;
@@ -26,9 +28,20 @@ class SettingBox extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SvgPicture.asset(icon, color: color, width: 22, height: 22,),
-          SizedBox(height: 7,),
-          Text(title, style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w500),)
+          SvgPicture.asset(
+            icon,
+            color: color,
+            width: 22,
+            height: 22,
+          ),
+          SizedBox(
+            height: 7,
+          ),
+          Text(
+            title,
+            style: TextStyle(
+                color: color, fontSize: 14, fontWeight: FontWeight.w500),
+          )
         ],
       ),
     );

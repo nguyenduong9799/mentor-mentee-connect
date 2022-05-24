@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:online_course/theme/color.dart';
+import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'chat_notify.dart';
 import 'custom_image.dart';
 
 class ChatItem extends StatelessWidget {
-  const ChatItem(this.chatData, { Key? key, this.onTap, this.isNotified = true, this.profileSize = 50}) : super(key: key);
+  const ChatItem(this.chatData,
+      {Key? key, this.onTap, this.isNotified = true, this.profileSize = 50})
+      : super(key: key);
   final chatData;
   final bool isNotified;
   final GestureTapCallback? onTap;
@@ -37,45 +38,58 @@ class ChatItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomImage(
-                  chatData['image'], 
-                  width: profileSize, height: profileSize,
+                  chatData['image'],
+                  width: profileSize,
+                  height: profileSize,
                 ),
                 SizedBox(width: 10),
                 Expanded(
-                  child: 
-                  Container(
-                    child:
-                      Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  child: Text(chatData['name'], maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700))
-                                )
-                              ),
-                              SizedBox(width: 5),
-                              Container(
-                                child: Text(chatData['date'], maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11, color: Colors.grey))
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 5,),
-                          Row(
-                            children: <Widget>[
-                              Expanded(child: Text(chatData['last_text'], maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13))),
-                              if(isNotified)
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: ChatNotify(number: chatData['notify'], boxSize: 17, color: red,),
-                                )
-                            ],
-                          ),
-                        ],
-                      )
-                  )
-                ),
+                    child: Container(
+                        child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: Container(
+                                child: Text(chatData['name'],
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700)))),
+                        SizedBox(width: 5),
+                        Container(
+                            child: Text(chatData['date'],
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 11, color: Colors.grey)))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Text(chatData['last_text'],
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 13))),
+                        if (isNotified)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: ChatNotify(
+                              number: chatData['notify'],
+                              boxSize: 17,
+                              color: red,
+                            ),
+                          )
+                      ],
+                    ),
+                  ],
+                ))),
               ],
             ),
           ],

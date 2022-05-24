@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:online_course/theme/color.dart';
-import 'package:online_course/widgets/custom_image.dart';
+import 'package:mentor_mentee_connecting/theme/color.dart';
+import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
 
 class RecommendItem extends StatelessWidget {
-  RecommendItem({ Key? key, required this.data, this.onTap}) : super(key: key);
+  RecommendItem({Key? key, required this.data, this.onTap}) : super(key: key);
   final data;
   final GestureTapCallback? onTap;
 
@@ -30,36 +29,71 @@ class RecommendItem extends StatelessWidget {
           ),
           child: Row(
             children: [
-              CustomImage(data["image"],
+              CustomImage(
+                data["image"],
                 radius: 15,
                 height: 80,
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(data["name"], maxLines: 1, overflow: TextOverflow.ellipsis, 
-                    style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.w600),
+                  Text(
+                    data["name"],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: textColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(height: 5,),
-                  Text(data["price"], style: TextStyle(fontSize: 14, color: textColor),),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    data["price"],
+                    style: TextStyle(fontSize: 14, color: textColor),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     children: [
-                      Icon(Icons.schedule_rounded, color: labelColor, size: 14,), 
-                      SizedBox(width: 2,),
-                      Text(data["duration"], style: TextStyle(fontSize: 12, color: labelColor),),
-                      SizedBox(width: 20,),
-                      Icon(Icons.star, color: orange, size: 14,), 
-                      SizedBox(width: 2,),
-                      Text(data["review"], style: TextStyle(fontSize: 12, color: labelColor),)
+                      Icon(
+                        Icons.schedule_rounded,
+                        color: labelColor,
+                        size: 14,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text(
+                        data["duration"],
+                        style: TextStyle(fontSize: 12, color: labelColor),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.star,
+                        color: orange,
+                        size: 14,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text(
+                        data["review"],
+                        style: TextStyle(fontSize: 12, color: labelColor),
+                      )
                     ],
                   )
                 ],
               )
             ],
-          )
-        ),
+          )),
     );
   }
 }
