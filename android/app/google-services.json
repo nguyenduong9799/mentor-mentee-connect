@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "322678416517",
+    "project_id": "mentor-mentee-connecting",
+    "storage_bucket": "mentor-mentee-connecting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322678416517:android:eaef7a0eccfb948c1535ec",
+        "android_client_info": {
+          "package_name": "com.sangvaleap.online_course"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322678416517-i2j835ua60bbf0cn8n9e18hlotpum8t2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sangvaleap.online_course",
+            "certificate_hash": "777e222c1dca615d14c6849f6e85d20fe089e32a"
+          }
+        },
+        {
+          "client_id": "322678416517-no6lhsf1vbljg279hp7ulhoh3d7fkaki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0rwfM4IdlCfW50MuMagzwRS34peAdZPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322678416517-no6lhsf1vbljg279hp7ulhoh3d7fkaki.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "322678416517-e5ff9ek7khrmlc57s97dtom4k4ovn7ee.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.endy.MentorMenteeConnecting"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_mentee_connecting/Theme/color.dart';
+import 'package:mentor_mentee_connecting/Widgets/recommend_item.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/category_item.dart';
-import 'package:mentor_mentee_connecting/widgets/chat_item.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_textfield.dart';
 import 'package:mentor_mentee_connecting/widgets/feature_item.dart';
 
@@ -15,22 +16,40 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    return buildBody();
+    return Scaffold(
+        backgroundColor: appBgColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: appBarColor,
+              pinned: true,
+              snap: true,
+              floating: true,
+              title: getHeader(),
+              bottom: getSearchBar(),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => getSearchCourses(),
+                childCount: 1,
+              ),
+            )
+          ],
+        ));
   }
 
-  buildBody() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(left: 15, right: 15),
-      child: Column(children: [
-        getHeader(),
-        buildCategory(),
-        getSearchCourses(),
-      ]),
-    );
-  }
+  // buildBody() {
+  //   return SingleChildScrollView(
+  //     child: Column(children: [
+  //       getSearchCourses(),
+  //     ]),
+  //   );
+  // }
 
   getHeader() {
     return Container(
+        height: 100,
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(0, 48, 0, 4),
         child: Column(
           children: [
@@ -50,32 +69,54 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ],
             ),
-            SizedBox(height: 12),
-            CustomTextBox(
-              hint: "Search",
-              prefix: Icon(Icons.search, color: Colors.grey),
+          ],
+        ));
+  }
+
+  getSearchBar() {
+    return PreferredSize(
+        preferredSize: const Size.fromHeight(120),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8),
+              child: CustomTextBox(
+                hint: "Search",
+                prefix: Icon(Icons.search, color: Colors.grey),
+              ),
             ),
+            SizedBox(
+              height: 8,
+            ),
+            buildCategory()
           ],
         ));
   }
 
   getSearchCourses() {
-    return ListView(
-        padding: EdgeInsets.only(top: 10),
-        shrinkWrap: true,
-        children: List.generate(
-            features.length,
-            (index) => FeatureItem(
-                  onTap: () {},
-                  data: features[index],
-                  height: 240,
-                )));
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.only(top: 8),
+        child: Column(
+            children: List.generate(
+                features.length,
+                (index) => Container(
+                      padding: EdgeInsets.only(bottom: 8),
+                      child: RecommendItem(
+                        onTap: () {},
+                        data: features[index],
+                      ),
+                    ))),
+      ),
+    );
   }
 
   int selectedCategoryIndex = 0;
   Widget buildCategory() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(15, 5, 7, 0),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
       scrollDirection: Axis.horizontal,
       child: Row(
         children: List.generate(
@@ -83,7 +124,7 @@ class _SearchPageState extends State<SearchPage> {
           (index) => Padding(
             padding: const EdgeInsets.only(right: 8),
             child: CategoryItem(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
               data: categories[index],
               isSelected: index == selectedCategoryIndex,
               onTap: () {

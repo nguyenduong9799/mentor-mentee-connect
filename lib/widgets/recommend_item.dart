@@ -12,11 +12,11 @@ class RecommendItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          margin: EdgeInsets.only(right: 10),
-          padding: EdgeInsets.all(10),
-          width: 300,
+          margin: EdgeInsets.only(left: 8, right: 8),
+          padding: EdgeInsets.all(12),
+          width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(12),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -31,14 +31,15 @@ class RecommendItem extends StatelessWidget {
             children: [
               CustomImage(
                 data["image"],
-                radius: 15,
-                height: 80,
+                radius: 8,
+                height: 88,
               ),
               SizedBox(
-                width: 10,
+                width: 12,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     data["name"],
@@ -50,27 +51,20 @@ class RecommendItem extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    data["price"],
-                    style: TextStyle(fontSize: 14, color: textColor),
-                  ),
-                  SizedBox(
-                    height: 15,
+                    height: 8,
                   ),
                   Row(
                     children: [
                       Icon(
                         Icons.schedule_rounded,
                         color: labelColor,
-                        size: 14,
+                        size: 16,
                       ),
                       SizedBox(
-                        width: 2,
+                        width: 4,
                       ),
                       Text(
-                        data["duration"],
+                        data["session"],
                         style: TextStyle(fontSize: 12, color: labelColor),
                       ),
                       SizedBox(
@@ -79,15 +73,43 @@ class RecommendItem extends StatelessWidget {
                       Icon(
                         Icons.star,
                         color: orange,
-                        size: 14,
+                        size: 16,
                       ),
                       SizedBox(
-                        width: 2,
+                        width: 4,
                       ),
                       Text(
                         data["review"],
                         style: TextStyle(fontSize: 12, color: labelColor),
                       )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Nguyen Duong",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: textColor,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        data["price"],
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: textColor,
+                            fontWeight: FontWeight.w600),
+                      ),
                     ],
                   )
                 ],

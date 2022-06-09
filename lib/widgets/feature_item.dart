@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mentor_mentee_connecting/theme/color.dart';
+import 'package:mentor_mentee_connecting/Theme/color.dart';
 
 import 'custom_image.dart';
 
@@ -23,11 +23,11 @@ class FeatureItem extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        padding: EdgeInsets.all(10),
+        // padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(bottom: 5, top: 5),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          // borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: shadowColor.withOpacity(0.1),
@@ -43,7 +43,7 @@ class FeatureItem extends StatelessWidget {
               data["image"],
               width: double.infinity,
               height: 140,
-              radius: 15,
+              radius: 1,
             ),
             Positioned(
               top: 120,
@@ -70,39 +70,80 @@ class FeatureItem extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 160,
+              top: 150,
               child: Container(
                 width: width - 20,
-                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Coding",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: secondary,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        getAttribute(Icons.star, yellow, data["review"]),
+                      ],
+                    ),
                     Text(
                       data["name"],
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 16,
                           color: textColor,
                           fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 8,
+                    ),
+                    Text(
+                      data["description"],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: labelColor,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 8,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        getAttribute(Icons.play_circle_outlined, labelColor,
-                            data["session"]),
-                        SizedBox(
-                          width: 12,
+                        CustomImage(
+                          data["image"],
+                          width: 20,
+                          height: 20,
+                          radius: 60,
                         ),
-                        getAttribute(Icons.schedule_rounded, labelColor,
-                            data["duration"]),
-                        SizedBox(
-                          width: 12,
+                        Flexible(
+                          child: Text(
+                            "Nguyen Duong",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: textColor,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
-                        getAttribute(Icons.star, yellow, data["review"]),
+                        Container(
+                          child: getAttribute(Icons.play_circle_outlined,
+                              labelColor, data["session"]),
+                        )
                       ],
                     ),
                   ],
@@ -118,19 +159,19 @@ class FeatureItem extends StatelessWidget {
   getAttribute(IconData icon, Color color, String info) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 18,
-          color: color,
-        ),
-        SizedBox(
-          width: 3,
-        ),
         Text(
           info,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: labelColor, fontSize: 13),
+          style: TextStyle(color: labelColor, fontSize: 12),
+        ),
+        SizedBox(
+          width: 4,
+        ),
+        Icon(
+          icon,
+          size: 16,
+          color: color,
         ),
       ],
     );

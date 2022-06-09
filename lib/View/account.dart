@@ -1,4 +1,9 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mentor_mentee_connecting/View/login.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
@@ -13,6 +18,56 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  late User user;
+  late TextEditingController controller;
+
+  String? photoURL;
+
+  bool showSaveButton = false;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    user = FirebaseAuth.instance.currentUser!;
+
+    FirebaseAuth.instance.userChanges().listen((event) {
+      if (event != null && mounted) {
+        setState(() {
+          user = event;
+        });
+      }
+    });
+
+    log(user.toString());
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void setIsLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  /// Map User provider data into a list of Provider Ids.
+  List get userProviders => user.providerData.map((e) => e.providerId).toList();
+
+  Future updateDisplayName() async {
+    await user.updateDisplayName(controller.text);
+
+    setState(() {
+      showSaveButton = false;
+    });
+
+    // ignore: use_build_context_synchronously
+    // ScaffoldSnackbar.of(context).show('Name updated');
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -51,7 +106,7 @@ class _AccountPageState extends State<AccountPage> {
           Column(
             children: [
               CustomImage(
-                profile["image"]!,
+                user.photoURL ?? profile["image"]!,
                 width: 70,
                 height: 70,
                 radius: 20,
@@ -60,7 +115,7 @@ class _AccountPageState extends State<AccountPage> {
                 height: 10,
               ),
               Text(
-                profile["name"]!,
+                user.displayName ?? profile["name"]!,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               ),
             ],
@@ -209,12 +264,63 @@ class _AccountPageState extends State<AccountPage> {
                 title: "Log Out",
                 leadingIcon: "assets/icons/logout.svg",
                 bgIconColor: darker,
-                onTap: () {},
+                onTap: () {
+                  _signOut();
+                },
               ),
             ]),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+  }
+
+  Future<String?> getPhotoURLFromUser() async {
+    String? photoURL;
+
+    // Update the UI - wait for the user to enter the SMS code
+    await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('New image Url:'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Update'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                photoURL = null;
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+          content: Container(
+            padding: const EdgeInsets.all(20),
+            child: TextField(
+              onChanged: (value) {
+                photoURL = value;
+              },
+              textAlign: TextAlign.center,
+              autofocus: true,
+            ),
+          ),
+        );
+      },
+    );
+
+    return photoURL;
   }
 }

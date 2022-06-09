@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>322678416517-e5ff9ek7khrmlc57s97dtom4k4ovn7ee.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.322678416517-e5ff9ek7khrmlc57s97dtom4k4ovn7ee</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>322678416517-i2j835ua60bbf0cn8n9e18hlotpum8t2.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBj-5p6QV47-qU02J6xVdNKEucnX6ImuNA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>322678416517</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.endy.MentorMenteeConnecting</string>
+	<key>PROJECT_ID</key>
+	<string>mentor-mentee-connecting</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mentor-mentee-connecting.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:322678416517:ios:006ac0f3f49e7bac1535ec</string>
+</dict>
+</plist>

@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mentor_mentee_connecting/View/account.dart';
 import 'package:mentor_mentee_connecting/View/chat.dart';
+import 'package:mentor_mentee_connecting/View/courses.dart';
 import 'package:mentor_mentee_connecting/View/search.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'package:mentor_mentee_connecting/utils/constant.dart';
 import 'package:mentor_mentee_connecting/widgets/bottombar_item.dart';
 import 'home.dart';
+import 'login.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class RootApp extends StatefulWidget {
 }
 
 class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   int activeTab = 0;
   List barItems = [
     {
@@ -30,13 +34,13 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/play.svg",
       "active_icon": "assets/icons/play.svg",
-      "page": Container(),
+      "page": CoursesPage(),
     },
-    {
-      "icon": "assets/icons/chat.svg",
-      "active_icon": "assets/icons/chat.svg",
-      "page": ChatPage(),
-    },
+    // {
+    //   "icon": "assets/icons/chat.svg",
+    //   "active_icon": "assets/icons/chat.svg",
+    //   "page": ChatPage(),
+    // },
     {
       "icon": "assets/icons/profile.svg",
       "active_icon": "assets/icons/profile.svg",
@@ -83,6 +87,10 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    return auth.currentUser == null ? LoginPage() : MainScreen();
+  }
+
+  Widget MainScreen() {
     return Scaffold(
         backgroundColor: appBgColor,
         bottomNavigationBar: getBottomBar(),
@@ -98,7 +106,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
 
   Widget getBottomBar() {
     return Container(
-      height: 75,
+      height: 68,
       width: double.infinity,
       decoration: BoxDecoration(
           color: bottomBarColor,
