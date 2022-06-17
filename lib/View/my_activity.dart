@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_mentee_connecting/Widgets/activity_item.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
-import 'package:mentor_mentee_connecting/widgets/chat_item.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_textfield.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({Key? key}) : super(key: key);
+class MyActivityPage extends StatefulWidget {
+  const MyActivityPage({Key? key}) : super(key: key);
 
   @override
-  _ChatPageState createState() => _ChatPageState();
+  _MyActivityPageState createState() => _MyActivityPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _MyActivityPageState extends State<MyActivityPage> {
   @override
   Widget build(BuildContext context) {
     return buildBody();
@@ -38,19 +38,14 @@ class _ChatPageState extends State<ChatPage> {
                   child: Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Chat",
+                        "My Activity",
                         style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 24,
                             color: Colors.black87,
                             fontWeight: FontWeight.w600),
                       )),
                 ),
               ],
-            ),
-            SizedBox(height: 15),
-            CustomTextBox(
-              hint: "Search",
-              prefix: Icon(Icons.search, color: Colors.grey),
             ),
           ],
         ));
@@ -62,7 +57,7 @@ class _ChatPageState extends State<ChatPage> {
         shrinkWrap: true,
         children: List.generate(
             chats.length,
-            (index) => ChatItem(
+            (index) => ActivityItem(
                   chats[index],
                   onTap: () {},
                 )));

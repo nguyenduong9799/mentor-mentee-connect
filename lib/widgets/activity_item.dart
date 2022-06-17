@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mentor_mentee_connecting/theme/color.dart';
+import 'package:mentor_mentee_connecting/Theme/color.dart';
+
 import 'chat_notify.dart';
 import 'custom_image.dart';
 
-class ChatItem extends StatelessWidget {
-  const ChatItem(this.chatData,
-      {Key? key, this.onTap, this.isNotified = true, this.profileSize = 50})
+class ActivityItem extends StatelessWidget {
+  const ActivityItem(this.chatData,
+      {Key? key, this.onTap, this.isNotified = true, this.profileSize = 80})
       : super(key: key);
   final chatData;
   final bool isNotified;
@@ -17,7 +18,7 @@ class ChatItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -33,16 +34,10 @@ class ChatItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 2),
+            SizedBox(height: 4),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CustomImage(
-                  chatData['image'],
-                  width: profileSize,
-                  height: profileSize,
-                ),
-                SizedBox(width: 10),
                 Expanded(
                     child: Container(
                         child: Column(
@@ -52,40 +47,36 @@ class ChatItem extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                             child: Container(
-                                child: Text(chatData['name'],
-                                    maxLines: 1,
+                                child: Text(
+                                    "PRO221-Kiểu,biến và hằng số trong java",
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.w700)))),
-                        SizedBox(width: 5),
-                        Container(
-                            child: Text(chatData['date'],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 11, color: Colors.grey)))
                       ],
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 8,
                     ),
                     Row(
                       children: <Widget>[
                         Expanded(
-                            child: Text(chatData['last_text'],
+                            child: Text("Today, From 9:30 Am To 11:00 Am",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 13))),
-                        if (isNotified)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: ChatNotify(
-                              number: chatData['notify'],
-                              boxSize: 17,
-                              color: red,
-                            ),
-                          )
+                                style:
+                                    TextStyle(fontSize: 16, color: primary))),
+                        // if (isNotified)
+                        //   Padding(
+                        //       padding: const EdgeInsets.only(right: 5),
+                        //       child: Container(
+                        //           child: Text("1.5 hour",
+                        //               maxLines: 1,
+                        //               overflow: TextOverflow.ellipsis,
+                        //               style: TextStyle(
+                        //                 fontSize: 16,
+                        //               ))))
                       ],
                     ),
                   ],

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mentor_mentee_connecting/View/account.dart';
-import 'package:mentor_mentee_connecting/View/chat.dart';
+import 'package:mentor_mentee_connecting/View/my_activity.dart';
 import 'package:mentor_mentee_connecting/View/courses.dart';
 import 'package:mentor_mentee_connecting/View/search.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
@@ -36,11 +36,11 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
       "active_icon": "assets/icons/play.svg",
       "page": CoursesPage(),
     },
-    // {
-    //   "icon": "assets/icons/chat.svg",
-    //   "active_icon": "assets/icons/chat.svg",
-    //   "page": ChatPage(),
-    // },
+    {
+      "icon": "assets/icons/chat.svg",
+      "active_icon": "assets/icons/chat.svg",
+      "page": MyActivityPage(),
+    },
     {
       "icon": "assets/icons/profile.svg",
       "active_icon": "assets/icons/profile.svg",

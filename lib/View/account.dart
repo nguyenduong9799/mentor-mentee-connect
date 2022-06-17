@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mentor_mentee_connecting/Constant/route_constraint.dart';
 import 'package:mentor_mentee_connecting/View/login.dart';
+import 'package:mentor_mentee_connecting/View/sign_in.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
@@ -287,8 +289,7 @@ class _AccountPageState extends State<AccountPage> {
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+    Get.toNamed(RouteHandler.LOGIN);
   }
 
   Future<String?> getPhotoURLFromUser() async {
