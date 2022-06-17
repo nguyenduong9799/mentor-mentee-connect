@@ -1,11 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/category_box.dart';
 import 'package:mentor_mentee_connecting/widgets/feature_item.dart';
 import 'package:mentor_mentee_connecting/widgets/notification_box.dart';
 import 'package:mentor_mentee_connecting/widgets/recommend_item.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,39 +44,46 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getAppBar() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Good Morning!",
-                  style: TextStyle(
-                    color: labelColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  )),
-              SizedBox(
-                height: 4,
-              ),
-              Text(
-                profile["name"]!,
-                style: TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                ),
-              ),
-            ],
-          )),
-          NotificationBox(
-            notifiedNumber: 1,
-            onTap: () {},
-          )
-        ],
+    return ScopedModel(
+      model: Get.find<AccountViewModel>(),
+      child: ScopedModelDescendant<AccountViewModel>(
+        builder: (context, child, model) {
+          return Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Xin chào !",
+                        style: TextStyle(
+                          color: labelColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        )),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      model.currentUser.fullName ?? "User",
+                      style: TextStyle(
+                        color: textColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ],
+                )),
+                NotificationBox(
+                  notifiedNumber: 1,
+                  onTap: () {},
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -87,7 +99,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: Text("Featured",
+            child: Text("Today Courses",
                 style: TextStyle(
                   color: textColor,
                   fontWeight: FontWeight.w600,
@@ -104,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Recommended",
+                  "Today Sessions",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -146,30 +158,56 @@ class _HomePageState extends State<HomePage> {
   }
 
   getFeature() {
-    return CarouselSlider(
-        options: CarouselOptions(
-          height: 280,
-          enlargeCenterPage: true,
-          disableCenter: true,
-          viewportFraction: .75,
-        ),
-        items: List.generate(features.length,
-            (index) => FeatureItem(onTap: () {}, data: features[index])));
+    return ScopedModel<CourseViewModel>(
+        model: Get.find<CourseViewModel>(),
+        child: ScopedModelDescendant<CourseViewModel>(
+          builder: (context, child, model) {
+            List<CourseDTO>? currentCourse = model.listCourse;
+            if (currentCourse == null)
+              return SizedBox(
+                height: 30,
+              );
+            else
+              return CarouselSlider(
+                  options: CarouselOptions(
+                    height: 280,
+                    enlargeCenterPage: true,
+                    disableCenter: true,
+                    viewportFraction: .75,
+                  ),
+                  items: List.generate(
+                      currentCourse.length,
+                      (index) => FeatureItem(
+                          onTap: () {}, data: currentCourse[index])));
+          },
+        ));
   }
 
   getRecommend() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-          children: List.generate(
-              recommends.length,
-              (index) => Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: RecommendItem(
-                    data: recommends[index],
-                    onTap: () {},
-                  )))),
+    return ScopedModel<CourseViewModel>(
+      model: Get.find<CourseViewModel>(),
+      child: ScopedModelDescendant<CourseViewModel>(
+          builder: (context, child, model) {
+        List<CourseDTO>? currentCourse = model.listCourse;
+        if (currentCourse == null)
+          return SizedBox(
+            height: 30,
+          );
+        else
+          return SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: List.generate(
+                    currentCourse.length,
+                    (index) => Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: RecommendItem(
+                          data: currentCourse[index],
+                          onTap: () {},
+                        )))),
+          );
+      }),
     );
   }
 }

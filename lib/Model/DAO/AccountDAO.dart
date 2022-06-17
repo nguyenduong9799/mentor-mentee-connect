@@ -15,9 +15,9 @@ import 'BaseDAO.dart';
 class AccountDAO extends BaseDAO {
   Future<AccountDTO> login(String idToken) async {
     try {
-      String? fcmToken;
+      // String? fcmToken;
 
-      fcmToken = (await PushNotificationService.getInstance().getFcmToken());
+      // fcmToken = (await PushNotificationService.getInstance().getFcmToken());
 
       Response response =
           await request.post("authenticate/login", data: {"idToken": idToken});
@@ -31,8 +31,9 @@ class AccountDAO extends BaseDAO {
       requestObj.setToken = accessToken;
       setToken(accessToken);
       return userDTO;
-    } catch (e) {}
-    return AccountDTO(fullName: "Default Name");
+    } catch (e) {
+      throw (e);
+    }
   }
 
   Future<bool> isUserLoggedIn() async {
@@ -44,9 +45,9 @@ class AccountDAO extends BaseDAO {
   }
 
   Future<AccountDTO> getUser() async {
-    Response response = await request.get("me");
+    Response response = await request.get("users/me");
     // set access token
-    final user = response.data["data"];
+    final user = response.data;
     return AccountDTO.fromJson(user);
     // return AccountDTO(uid: idToken, name: "Default Name");
   }

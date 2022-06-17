@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/SubjectDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/subject_viewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/recommend_item.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/category_item.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_textfield.dart';
 import 'package:mentor_mentee_connecting/widgets/feature_item.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -37,14 +43,6 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ));
   }
-
-  // buildBody() {
-  //   return SingleChildScrollView(
-  //     child: Column(children: [
-  //       getSearchCourses(),
-  //     ]),
-  //   );
-  // }
 
   getHeader() {
     return Container(
@@ -94,48 +92,71 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   getSearchCourses() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        padding: EdgeInsets.only(top: 8),
-        child: Column(
-            children: List.generate(
-                features.length,
-                (index) => Container(
-                      padding: EdgeInsets.only(bottom: 8),
-                      child: RecommendItem(
-                        onTap: () {},
-                        data: features[index],
-                      ),
-                    ))),
-      ),
+    return ScopedModel<CourseViewModel>(
+      model: Get.find<CourseViewModel>(),
+      child: ScopedModelDescendant<CourseViewModel>(
+          builder: (context, child, model) {
+        List<CourseDTO>? currentCourse = model.listCourse;
+        if (currentCourse == null)
+          return SizedBox(
+            height: 30,
+          );
+        else
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.only(top: 8),
+              child: Column(
+                  children: List.generate(
+                      currentCourse.length,
+                      (index) => Container(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: RecommendItem(
+                              onTap: () {},
+                              data: currentCourse[index],
+                            ),
+                          ))),
+            ),
+          );
+      }),
     );
   }
 
   int selectedCategoryIndex = 0;
   Widget buildCategory() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          categories.length,
-          (index) => Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: CategoryItem(
-              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-              data: categories[index],
-              isSelected: index == selectedCategoryIndex,
-              onTap: () {
-                setState(() {
-                  selectedCategoryIndex = index;
-                });
-              },
-            ),
-          ),
-        ),
-      ),
-    );
+    return ScopedModel<SubjectViewModel>(
+        model: Get.find<SubjectViewModel>(),
+        child: ScopedModelDescendant<SubjectViewModel>(
+            builder: (context, child, model) {
+          List<SubjectDTO>? currentSubject = model.listSubject;
+          if (currentSubject == null)
+            return SizedBox(
+              height: 30,
+            );
+          else
+            return SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                  currentSubject.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: CategoryItem(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                      data: currentSubject[index],
+                      isSelected: index == selectedCategoryIndex,
+                      onTap: () {
+                        setState(() {
+                          selectedCategoryIndex = index;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            );
+        }));
   }
 }

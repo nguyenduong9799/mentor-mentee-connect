@@ -3,13 +3,13 @@ import 'package:scoped_model/scoped_model.dart';
 
 class BaseModel extends Model {
   ViewStatus _status = ViewStatus.Completed;
-  late String _msg;
+  String? _msg;
   ViewStatus get status => _status;
-  String get msg => _msg;
+  String? get msg => _msg;
 
   void setState(ViewStatus newState, [String? msg]) {
     _status = newState;
-    _msg = msg!;
+    _msg = msg;
     notifyListeners();
   }
 }

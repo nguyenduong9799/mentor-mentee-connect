@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mentor_mentee_connecting/theme/color.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/Theme/color.dart';
+import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
 
 class RecommendItem extends StatelessWidget {
   RecommendItem({Key? key, required this.data, this.onTap}) : super(key: key);
-  final data;
+  CourseDTO data;
   final GestureTapCallback? onTap;
 
   @override
@@ -13,7 +15,7 @@ class RecommendItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
           margin: EdgeInsets.only(left: 8, right: 8),
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -30,92 +32,111 @@ class RecommendItem extends StatelessWidget {
           child: Row(
             children: [
               CustomImage(
-                data["image"],
+                data.imageUrl ?? "/assest/images/no-data.png",
                 radius: 8,
                 height: 88,
               ),
               SizedBox(
-                width: 12,
+                width: 8,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    data["name"],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.schedule_rounded,
-                        color: labelColor,
-                        size: 16,
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        data["session"],
-                        style: TextStyle(fontSize: 12, color: labelColor),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: orange,
-                        size: 16,
-                      ),
-                      SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        data["review"],
-                        style: TextStyle(fontSize: 12, color: labelColor),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Nguyen Duong",
-                        maxLines: 2,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.55,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      child: Text(
+                        data.name ?? "Course",
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: 12,
                             color: textColor,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        data["price"],
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: textColor,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  )
-                ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.schedule_rounded,
+                          color: labelColor,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          "Session",
+                          style: TextStyle(fontSize: 12, color: labelColor),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: orange,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          data.totalRating.toString(),
+                          style: TextStyle(fontSize: 12, color: labelColor),
+                        ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Container(
+                          height: 32,
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: primary,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: shadowColor.withOpacity(0.05),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(0, 0),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            formatPrice(data.price ?? 0.0),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      data.mentor?.fullName ?? "Mentor",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: textColor,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
               )
             ],
           )),
     );
   }
 }
+
+class $ {}

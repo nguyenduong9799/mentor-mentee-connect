@@ -15,4 +15,9 @@ class SubjectDTO {
     data['name'] = this.name;
     return data;
   }
+
+  static List<SubjectDTO> fromList(dynamic jsonList) {
+    var list = jsonList as List;
+    return list.map((map) => SubjectDTO.fromJson(map)).toList();
+  }
 }

@@ -21,4 +21,9 @@ class MajorDTO {
     data['sort'] = this.sort;
     return data;
   }
+
+  static List<MajorDTO> fromList(dynamic jsonList) {
+    var list = jsonList as List;
+    return list.map((map) => MajorDTO.fromJson(map)).toList();
+  }
 }

@@ -7,7 +7,7 @@ class CourseDTO {
   String? name;
   int? minQuantity;
   int? maxQuantity;
-  int? price;
+  double? price;
   String? slug;
   String? imageUrl;
   String? startDate;
@@ -20,7 +20,7 @@ class CourseDTO {
   int? locationType;
   String? location;
   String? description;
-  int? totalRating;
+  double? totalRating;
   int? mentorId;
   AccountDTO? mentor;
   int? subjectId;
@@ -79,6 +79,11 @@ class CourseDTO {
         ? new SubjectDTO.fromJson(json['subject'])
         : null;
     sort = json['sort'];
+  }
+
+  static List<CourseDTO> fromList(dynamic jsonList) {
+    var list = jsonList as List;
+    return list.map((map) => CourseDTO.fromJson(map)).toList();
   }
 
   Map<String, dynamic> toJson() {

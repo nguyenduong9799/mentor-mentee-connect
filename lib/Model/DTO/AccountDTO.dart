@@ -27,8 +27,8 @@ class AccountDTO {
       this.roleId});
 
   AccountDTO.fromJson(Map<String, dynamic> json) {
-    id = json['userId'];
-    fullName = json['name'];
+    id = json['id'];
+    fullName = json['fullName'];
     gender = json['gender'];
     imageUrl = json['imageUrl'];
     phone = json['phone'];
@@ -43,8 +43,8 @@ class AccountDTO {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.id;
-    data['name'] = this.fullName;
+    data['id'] = this.id;
+    data['fullName'] = this.fullName;
     data['gender'] = this.gender;
     data['imageUrl'] = this.imageUrl;
     data['phone'] = this.phone;

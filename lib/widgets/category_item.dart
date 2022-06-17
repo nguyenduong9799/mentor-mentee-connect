@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/SubjectDTO.dart';
+import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
-import '../theme/color.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({
@@ -10,7 +11,7 @@ class CategoryItem extends StatelessWidget {
     this.onTap,
     this.padding = const EdgeInsets.fromLTRB(20, 15, 20, 15),
   }) : super(key: key);
-  final dynamic data;
+  final SubjectDTO data;
   final bool isSelected;
   final GestureTapCallback? onTap;
   final EdgeInsets padding;
@@ -40,25 +41,13 @@ class CategoryItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // CustomImage(
-              //   data["icon"],
-              //   width: 28,
-              //   height: 28,
-              //   radius: 5,
-              //   isNetwork: false,
-              //   trBackground: ,
-              //   isShadow: false,
-              // ),
-              // const SizedBox(
-              //   width: 7,
-              // ),
               Text(
-                data["name"],
+                data.name ?? "subject",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 18,
-                  color: isSelected ? textColor : darker,
+                  fontSize: 16,
+                  color: isSelected ? textBoxColor : darker,
                   fontWeight: FontWeight.w500,
                 ),
               )

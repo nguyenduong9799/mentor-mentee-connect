@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
+import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 
 import 'custom_image.dart';
 
@@ -11,7 +13,7 @@ class FeatureItem extends StatelessWidget {
       this.height = 240,
       this.onTap})
       : super(key: key);
-  final data;
+  CourseDTO data;
   final double width;
   final double height;
   final GestureTapCallback? onTap;
@@ -40,110 +42,94 @@ class FeatureItem extends StatelessWidget {
         child: Stack(
           children: [
             CustomImage(
-              data["image"],
+              data.imageUrl ?? "/assest/images/no-data.png",
               width: double.infinity,
               height: 140,
               radius: 1,
             ),
+            // Positioned(
+            //   top: 120,
+            //   right: 15,
+            //   child: Container(
+            //     padding: EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       color: primary,
+            //       borderRadius: BorderRadius.circular(20),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           color: shadowColor.withOpacity(0.05),
+            //           spreadRadius: 1,
+            //           blurRadius: 1,
+            //           offset: Offset(0, 0),
+            //         ),
+            //       ],
+            //     ),
+            //     child: Text(
+            //       formatPrice(data.price ?? 0.0),
+            //       style: TextStyle(
+            //           color: Colors.white, fontWeight: FontWeight.w500),
+            //     ),
+            //   ),
+            // ),
             Positioned(
-              top: 120,
-              right: 15,
+              top: 144,
               child: Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: primary,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: shadowColor.withOpacity(0.05),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: Text(
-                  data["price"],
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 150,
-              child: Container(
-                width: width - 20,
+                width: width,
                 padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      height: 44,
+                      child: Text(
+                        data.name ?? "Course",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: textColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Coding",
+                          data.subject?.name ?? "Subject",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                              fontSize: 12,
-                              color: secondary,
-                              fontWeight: FontWeight.w600),
+                              fontSize: 16,
+                              color: primary,
+                              fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(
-                          width: 8,
+                        Text(
+                          formatPrice(data.price ?? 0.0),
+                          style: TextStyle(
+                              color: third,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
                         ),
-                        getAttribute(Icons.star, yellow, data["review"]),
                       ],
                     ),
-                    Text(
-                      data["name"],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: textColor,
-                          fontWeight: FontWeight.w600),
-                    ),
                     SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      data["description"],
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: labelColor,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 8,
+                      height: 12,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CustomImage(
-                          data["image"],
-                          width: 20,
-                          height: 20,
-                          radius: 60,
+                        getAttribute(Icons.play_circle_outlined, labelColor,
+                            data.slug ?? "Test"),
+                        SizedBox(
+                          width: 8,
                         ),
-                        Flexible(
-                          child: Text(
-                            "Nguyen Duong",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: textColor,
-                                fontWeight: FontWeight.w600),
-                          ),
+                        getAttribute(
+                          Icons.star,
+                          yellow,
+                          data.totalRating.toString(),
                         ),
-                        Container(
-                          child: getAttribute(Icons.play_circle_outlined,
-                              labelColor, data["session"]),
-                        )
                       ],
                     ),
                   ],
@@ -163,14 +149,14 @@ class FeatureItem extends StatelessWidget {
           info,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: labelColor, fontSize: 12),
+          style: TextStyle(color: labelColor, fontSize: 16),
         ),
         SizedBox(
           width: 4,
         ),
         Icon(
           icon,
-          size: 16,
+          size: 20,
           color: color,
         ),
       ],

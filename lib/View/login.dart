@@ -13,8 +13,10 @@ import 'package:mentor_mentee_connecting/Service/firebase_auth.dart';
 import 'package:mentor_mentee_connecting/Utils/request.dart';
 import 'package:mentor_mentee_connecting/View/home.dart';
 import 'package:mentor_mentee_connecting/View/root_app.dart';
+import 'package:mentor_mentee_connecting/ViewModel/login_viewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/custom_image2.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -45,8 +47,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: getBody(),
+    return ScopedModel(
+      model: LoginViewModel(),
+      child: Scaffold(
+        body: getBody(),
+      ),
     );
   }
 
@@ -62,8 +67,8 @@ class _LoginPageState extends State<LoginPage> {
           Center(
             child: Container(
               padding: EdgeInsets.all(10),
-              width: 150,
-              height: 150,
+              width: 180,
+              height: 180,
               child: CustomImage2(
                 "https://cdn-icons-png.flaticon.com/512/3820/3820331.png",
                 bgColor: appBgColor,
@@ -77,37 +82,41 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Center(
             child: Text(
-              "Login",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+              "Mentor Mentee Connect",
+              style: TextStyle(color: secondary, fontSize: 28),
             ),
           ),
           SizedBox(
-            height: 80,
+            height: 28,
           ),
-          Container(
-              child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 200),
-              child: isLoading
-                  ? Container(
-                      color: Colors.grey[200],
-                      height: 50,
-                      width: 250,
-                    )
-                  : SizedBox(
-                      width: 250,
-                      height: 50,
-                      child: SignInButton(
-                        Buttons.Google,
-                        onPressed: () {
-                          // AuthService().signInWithGoogle();
-                          _signInWithGoogle();
-                        },
+          Container(child: ScopedModelDescendant<LoginViewModel>(
+              builder: (context, child, LoginViewModel model) {
+            return Padding(
+              padding: const EdgeInsets.all(8),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: isLoading
+                    ? Container(
+                        color: Colors.grey[200],
+                        height: 60,
+                        width: 240,
+                      )
+                    : SizedBox(
+                        width: 240,
+                        height: 60,
+                        child: SignInButton(
+                          Buttons.Google,
+                          onPressed: () {
+                            // AuthService().signInWithGoogle();
+                            // _signInWithGoogle();
+
+                            model.signInWithGoogle();
+                          },
+                        ),
                       ),
-                    ),
-            ),
-          )),
+              ),
+            );
+          })),
         ],
       ),
     );
@@ -136,6 +145,7 @@ class _LoginPageState extends State<LoginPage> {
         final idToken = await userToken.getIdToken();
         // AccountDTO? userInfo = await dao?.login(idToken);
         // log(userInfo.toString());
+        log(idToken.toString());
 
         Response response = await request
             .post("authenticate/login", data: {"idToken": idToken});

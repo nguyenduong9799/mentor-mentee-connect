@@ -28,11 +28,11 @@ class AnalyticsService {
       value: user.fullName,
     );
     await _analytics.setUserProperty(
-      name: 'sex',
+      name: 'gender',
       value: user.gender.toString(),
     );
     await _analytics.setUserProperty(
-      name: 'birthdate',
+      name: 'dayOfBirth',
       value: user.dayOfBirth.toString(),
     );
     // property to indicate if it's a pro paying member

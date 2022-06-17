@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mentor_mentee_connecting/Constant/route_constraint.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/Utils/data.dart';
 import 'package:mentor_mentee_connecting/View/course_detail.dart';
@@ -6,15 +9,14 @@ import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
 
 class MyCourseItem extends StatelessWidget {
   MyCourseItem({Key? key, required this.data, this.onTap}) : super(key: key);
-  final data;
+  CourseDTO data;
   final GestureTapCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => CourseDetails()));
+        Get.toNamed(RouteHandler.COURSE_DETAILS, arguments: data);
       },
       child: Container(
           padding: EdgeInsets.all(8),
@@ -34,75 +36,78 @@ class MyCourseItem extends StatelessWidget {
           child: Row(
             children: [
               CustomImage(
-                data["image"],
+                data.imageUrl ?? "",
                 radius: 15,
-                height: 80,
+                height: 90,
               ),
               SizedBox(
-                width: 10,
+                width: 8,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data["name"],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: textColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  buildProgress(
-                      progress: 50.toDouble(),
-                      activeColor: primary,
-                      inactiveColor: inActiveColor,
-                      width: MediaQuery.of(context).size.width * 0.5),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    children: [
-                      // Icon(
-                      //   Icons.schedule_rounded,
-                      //   color: labelColor,
-                      //   size: 14,
-                      // ),
-                      // SizedBox(
-                      //   width: 2,
-                      // ),
-                      // Text(
-                      //   data["duration"],
-                      //   style: TextStyle(fontSize: 12, color: labelColor),
-                      // ),
-                      SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "5/10 lessions",
-                        style: TextStyle(fontSize: 12, color: labelColor),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: orange,
-                        size: 14,
-                      ),
-                      SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        data["review"],
-                        style: TextStyle(fontSize: 12, color: labelColor),
-                      ),
-                    ],
-                  )
-                ],
+              Container(
+                width: MediaQuery.of(context).size.width * 0.62,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.name ?? "Name",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: textColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    buildProgress(
+                        progress: 50.toDouble(),
+                        activeColor: primary,
+                        inactiveColor: inActiveColor,
+                        width: MediaQuery.of(context).size.width * 0.5),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: [
+                        // Icon(
+                        //   Icons.schedule_rounded,
+                        //   color: labelColor,
+                        //   size: 14,
+                        // ),
+                        // SizedBox(
+                        //   width: 2,
+                        // ),
+                        // Text(
+                        //   data["duration"],
+                        //   style: TextStyle(fontSize: 12, color: labelColor),
+                        // ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          "5/10 lessions",
+                          style: TextStyle(fontSize: 12, color: labelColor),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Icon(
+                          Icons.star,
+                          color: orange,
+                          size: 14,
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Text(
+                          data.totalRating.toString(),
+                          style: TextStyle(fontSize: 12, color: labelColor),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               )
             ],
           )),

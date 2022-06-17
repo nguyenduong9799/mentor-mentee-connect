@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/Utils/data.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/my_course.dart';
 import 'package:mentor_mentee_connecting/Widgets/recommend_item.dart';
 import 'package:mentor_mentee_connecting/widgets/category_item.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_textfield.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class CoursesPage extends StatefulWidget {
   const CoursesPage({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class _CoursesPageState extends State<CoursesPage>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController!.animation!.addListener(() {
       final aniValue = _tabController!.animation!.value;
       if (aniValue - _currentIndex > 0.5) {
@@ -52,17 +56,23 @@ class _CoursesPageState extends State<CoursesPage>
                 controller: _tabController,
                 tabs: [
                   Tab(
-                      child: Text("In Progress",
+                      child: Text("Waiting",
                           style: TextStyle(
                               fontSize: 16,
                               color:
                                   _currentIndex == 0 ? primary : textColor))),
                   Tab(
-                      child: Text("Done",
+                      child: Text("In Progress",
                           style: TextStyle(
                               fontSize: 16,
                               color:
                                   _currentIndex == 1 ? primary : textColor))),
+                  Tab(
+                      child: Text("Done",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color:
+                                  _currentIndex == 2 ? primary : textColor))),
                 ],
                 labelColor: primary,
                 indicatorColor: primary,
@@ -120,17 +130,28 @@ class _CoursesPageState extends State<CoursesPage>
   }
 
   getTabContent() {
-    return SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        padding: EdgeInsets.only(top: 10),
-        child: Column(
-            children: List.generate(
-                courses.length,
-                (index) => Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: MyCourseItem(
-                      data: courses[index],
-                      onTap: () {},
-                    )))));
+    return ScopedModel<CourseViewModel>(
+        model: Get.find<CourseViewModel>(),
+        child: ScopedModelDescendant<CourseViewModel>(
+            builder: (context, child, model) {
+          List<CourseDTO>? courses = model.listCourse;
+          if (courses == null)
+            return SizedBox(
+              height: 30,
+            );
+          else
+            return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.only(top: 12),
+                child: Column(
+                    children: List.generate(
+                        courses.length,
+                        (index) => Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                            child: MyCourseItem(
+                              data: courses[index],
+                              onTap: () {},
+                            )))));
+        }));
   }
 }

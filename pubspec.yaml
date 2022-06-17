@@ -32,6 +32,8 @@ dependencies:
   scoped_model: ^2.0.0-nullsafety.0
   firebase_analytics: ^8.1.2
   firebase_dynamic_links: ^2.0.6
+  introduction_screen: ^2.1.0
+  flutter_icons: ^1.1.0
 
 dependency_overrides:
   firebase_auth_platform_interface: 6.1.11
@@ -48,3 +50,19 @@ flutter:
     - assets/icons/
     - assets/icons/category/
     - assets/images/
+
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Black.ttf
+        - asset: assets/fonts/Nunito-BlackItalic.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
+        - asset: assets/fonts/Nunito-BlackItalic.ttf
+        - asset: assets/fonts/Nunito-ExtraBold.ttf
+        - asset: assets/fonts/Nunito-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Nunito-Italic.ttf
+        - asset: assets/fonts/Nunito-LightItalic.ttf
+        - asset: assets/fonts/Nunito-MediumItalic.ttf
+        - asset: assets/fonts/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito-SemiBold.ttf
+        - asset: assets/fonts/Nunito-SemiBoldItalic.ttf

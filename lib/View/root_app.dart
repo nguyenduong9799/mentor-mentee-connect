@@ -87,7 +87,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return auth.currentUser == null ? LoginPage() : MainScreen();
+    return MainScreen();
   }
 
   Widget MainScreen() {
