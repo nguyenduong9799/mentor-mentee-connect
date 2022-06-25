@@ -34,6 +34,8 @@ dependencies:
   firebase_dynamic_links: ^2.0.6
   introduction_screen: ^2.1.0
   flutter_icons: ^1.1.0
+  intl: ^0.17.0
+  reactive_forms: ^10.7.0
 
 dependency_overrides:
   firebase_auth_platform_interface: 6.1.11

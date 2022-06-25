@@ -88,14 +88,15 @@ class LoginViewModel extends BaseModel {
         log(userInfo.toJson().toString());
         await _analyticsService.setUserProperties(userInfo);
         if (userInfo != null) {
+          await Get.find<RootViewModel>().startUp();
           Get.rawSnackbar(
               message: "Đăng nhập thành công!!",
-              duration: Duration(seconds: 3),
+              duration: Duration(seconds: 2),
               snackPosition: SnackPosition.BOTTOM,
               margin: EdgeInsets.only(left: 8, right: 8, bottom: 32),
               borderRadius: 8);
-          await Get.find<RootViewModel>().startUp();
-          Get.toNamed(RouteHandler.NAV);
+
+          await Get.offAndToNamed(RouteHandler.NAV);
         }
       }
       await Future.delayed(Duration(microseconds: 500));

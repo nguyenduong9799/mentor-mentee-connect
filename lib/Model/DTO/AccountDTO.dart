@@ -7,6 +7,7 @@ class AccountDTO {
   String? email;
   String? address;
   String? dayOfBirth;
+  String? bio;
   bool? isFirstLogin;
   int? status;
   int? badge;
@@ -22,6 +23,7 @@ class AccountDTO {
       this.isFirstLogin,
       this.address,
       this.dayOfBirth,
+      this.bio,
       this.status,
       this.badge,
       this.roleId});
@@ -36,6 +38,7 @@ class AccountDTO {
     address = json['address'];
     isFirstLogin = json['isFirstLogin'];
     dayOfBirth = json['dayOfBirth'];
+    bio = json['bio'];
     status = json['status'];
     badge = json['badge'];
     roleId = json['roleId'];
@@ -52,6 +55,7 @@ class AccountDTO {
     data['isFirstLogin'] = this.isFirstLogin;
     data['address'] = this.address;
     data['dayOfBirth'] = this.dayOfBirth;
+    data['bio'] = this.bio;
     data['status'] = this.status;
     data['badge'] = this.badge;
     data['roleId'] = this.roleId;

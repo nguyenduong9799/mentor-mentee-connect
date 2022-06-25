@@ -1,12 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
-import 'package:mentor_mentee_connecting/Service/push_notification_service.dart';
 import 'package:mentor_mentee_connecting/Utils/request.dart';
 import 'package:mentor_mentee_connecting/Utils/shared_pref.dart';
-import 'package:mentor_mentee_connecting/View/login.dart';
 
 import 'BaseDAO.dart';
 
@@ -84,7 +81,7 @@ class AccountDAO extends BaseDAO {
 
   Future<AccountDTO> updateUser(AccountDTO updateUser) async {
     var dataJson = updateUser.toJson();
-    Response res = await request.put("me", data: dataJson);
-    return AccountDTO.fromJson(res.data["data"]);
+    Response res = await request.put("users", data: dataJson);
+    return AccountDTO.fromJson(res.data);
   }
 }

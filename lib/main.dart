@@ -1,16 +1,17 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/View/course_detail.dart';
 import 'package:mentor_mentee_connecting/View/home.dart';
-import 'package:mentor_mentee_connecting/View/login.dart';
+import 'package:mentor_mentee_connecting/View/update.dart';
+import 'package:mentor_mentee_connecting/View/update_course.dart';
 import 'package:mentor_mentee_connecting/setup.dart';
+
 import 'Constant/route_constraint.dart';
+import 'Model/DTO/AccountDTO.dart';
 import 'Utils/pageNavigation.dart';
 import 'Utils/request.dart';
 import 'View/onboard.dart';
@@ -18,8 +19,6 @@ import 'View/root_app.dart';
 import 'View/sign_in.dart';
 import 'View/start_up.dart';
 import 'theme/color.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +48,16 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
                 builder: (context) =>
                     CourseDetails(data: settings.arguments as CourseDTO),
+                settings: settings);
+          case RouteHandler.UPDATE:
+            return CupertinoPageRoute(
+                builder: (context) =>
+                    Update(user: settings.arguments as AccountDTO),
+                settings: settings);
+          case RouteHandler.UPDATE_COURSE:
+            return CupertinoPageRoute(
+                builder: (context) =>
+                    UpdateCourse(course: settings.arguments as CourseDTO),
                 settings: settings);
           case RouteHandler.NAV:
             return CupertinoPageRoute(

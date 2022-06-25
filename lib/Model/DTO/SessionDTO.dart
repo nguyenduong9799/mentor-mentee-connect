@@ -26,6 +26,11 @@ class SessionDTO {
     courseId = json['courseId'];
   }
 
+  static List<SessionDTO> fromList(dynamic jsonList) {
+    var list = jsonList as List;
+    return list.map((map) => SessionDTO.fromJson(map)).toList();
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;

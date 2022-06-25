@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
 
 import 'SubjectDTO.dart';
@@ -10,17 +12,17 @@ class CourseDTO {
   double? price;
   String? slug;
   String? imageUrl;
-  String? startDate;
-  String? updateDate;
-  String? createDate;
-  String? finishDate;
+  DateTime? startDate;
+  DateTime? updateDate;
+  DateTime? createDate;
+  DateTime? finishDate;
   int? status;
   bool? isActive;
   int? type;
   int? locationType;
   String? location;
   String? description;
-  double? totalRating;
+  num? totalRating;
   int? mentorId;
   AccountDTO? mentor;
   int? subjectId;
@@ -57,20 +59,20 @@ class CourseDTO {
     name = json['name'];
     minQuantity = json['minQuantity'];
     maxQuantity = json['maxQuantity'];
-    price = json['price'];
+    price = json['price'] as double;
     slug = json['slug'];
     imageUrl = json['imageUrl'];
-    startDate = json['startDate'];
-    updateDate = json['updateDate'];
-    createDate = json['createDate'];
-    finishDate = json['finishDate'];
+    startDate = DateTime.parse(json['startDate']);
+    updateDate = DateTime.parse(json['updateDate']);
+    createDate = DateTime.parse(json['createDate']);
+    finishDate = DateTime.parse(json['finishDate']);
     status = json['status'];
     isActive = json['isActive'];
     type = json['type'];
     locationType = json['locationType'];
     location = json['location'];
     description = json['description'];
-    totalRating = json['totalRating'];
+    totalRating = json['totalRating'] as num;
     mentorId = json['mentorId'];
     mentor =
         json['mentor'] != null ? new AccountDTO.fromJson(json['mentor']) : null;
@@ -95,10 +97,10 @@ class CourseDTO {
     data['price'] = this.price;
     data['slug'] = this.slug;
     data['imageUrl'] = this.imageUrl;
-    data['startDate'] = this.startDate;
-    data['updateDate'] = this.updateDate;
-    data['createDate'] = this.createDate;
-    data['finishDate'] = this.finishDate;
+    data['startDate'] = this.startDate.toString();
+    data['updateDate'] = this.updateDate.toString();
+    data['createDate'] = this.createDate.toString();
+    data['finishDate'] = this.finishDate.toString();
     data['status'] = this.status;
     data['isActive'] = this.isActive;
     data['type'] = this.type;

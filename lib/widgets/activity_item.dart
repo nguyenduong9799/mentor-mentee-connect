@@ -19,7 +19,7 @@ class ActivityItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -53,7 +53,7 @@ class ActivityItem extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w700)))),
+                                        fontWeight: FontWeight.w600)))),
                       ],
                     ),
                     SizedBox(

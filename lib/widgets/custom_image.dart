@@ -4,8 +4,8 @@ import 'package:mentor_mentee_connecting/theme/color.dart';
 
 class CustomImage extends StatelessWidget {
   CustomImage(this.image,
-      {this.width = 100,
-      this.height = 100,
+      {this.width = 80,
+      this.height = 80,
       this.bgColor,
       this.borderWidth = 0,
       this.borderColor,

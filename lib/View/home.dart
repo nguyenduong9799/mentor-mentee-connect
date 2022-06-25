@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           color: labelColor,
                           fontWeight: FontWeight.w500,
-                          fontSize: 14,
+                          fontSize: 16,
                         )),
                     SizedBox(
                       height: 4,
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         color: textColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 18,
+                        fontSize: 20,
                       ),
                     ),
                   ],
@@ -93,41 +93,17 @@ class _HomePageState extends State<HomePage> {
       child: Padding(
         padding: const EdgeInsets.only(top: 4, bottom: 4),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          getCategories(),
           SizedBox(
             height: 4,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: Text("Today Courses",
+            child: Text("Your Courses",
                 style: TextStyle(
                   color: textColor,
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 )),
-          ),
-          getFeature(),
-          SizedBox(
-            height: 12,
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Today Sessions",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: textColor),
-                ),
-                Text(
-                  "See all",
-                  style: TextStyle(fontSize: 18, color: darker),
-                ),
-              ],
-            ),
           ),
           getRecommend(),
         ]),
@@ -194,18 +170,22 @@ class _HomePageState extends State<HomePage> {
             height: 30,
           );
         else
-          return SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: List.generate(
-                    currentCourse.length,
-                    (index) => Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: RecommendItem(
-                          data: currentCourse[index],
-                          onTap: () {},
-                        )))),
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.only(top: 8),
+              child: Column(
+                  children: List.generate(
+                      currentCourse.length,
+                      (index) => Container(
+                            padding: EdgeInsets.only(bottom: 8),
+                            child: RecommendItem(
+                              onTap: () {},
+                              data: currentCourse[index],
+                            ),
+                          ))),
+            ),
           );
       }),
     );

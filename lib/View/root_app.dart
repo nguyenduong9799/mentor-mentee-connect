@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mentor_mentee_connecting/Utils/constant.dart';
 import 'package:mentor_mentee_connecting/View/account.dart';
 import 'package:mentor_mentee_connecting/View/my_activity.dart';
 import 'package:mentor_mentee_connecting/View/courses.dart';
 import 'package:mentor_mentee_connecting/View/search.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
-import 'package:mentor_mentee_connecting/utils/constant.dart';
 import 'package:mentor_mentee_connecting/widgets/bottombar_item.dart';
 import 'home.dart';
 import 'login.dart';

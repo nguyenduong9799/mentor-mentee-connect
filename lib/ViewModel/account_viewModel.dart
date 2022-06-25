@@ -43,6 +43,29 @@ class AccountViewModel extends BaseModel {
     }
   }
 
+  Future<void> updateUser(Map<String, dynamic> user) async {
+    try {
+      setState(ViewStatus.Loading);
+
+      final userDTO = AccountDTO(
+          fullName: user["name"],
+          email: user["email"],
+          dayOfBirth: user["birthdate"].toString().replaceAll(' ', 'T'),
+          phone: user["phone"],
+          gender: user["gender"],
+          bio: user["bio"]);
+      await _dao.updateUser(userDTO);
+      // setToken here
+      setState(ViewStatus.Completed);
+      Get.back(result: true);
+      // await Future.delayed(Duration(seconds: 3));
+    } catch (e) {
+      printError();
+      print(e);
+      setState(ViewStatus.Error);
+    }
+  }
+
   // Future<void> showRefferalMessage() async {
   //   try {
   //     String refferalCode =

@@ -4,6 +4,7 @@ import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/root_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/session_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/subject_viewModel.dart';
 
 import 'Service/push_notification_service.dart';
@@ -24,4 +25,5 @@ void createRouteBindings() async {
   Get.put(CourseViewModel());
   Get.put(AccountViewModel());
   Get.put(SubjectViewModel());
+  Get.put(SessionViewModel());
 }

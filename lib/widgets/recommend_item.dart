@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mentor_mentee_connecting/Constant/route_constraint.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/Utils/format_price.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
 
 class RecommendItem extends StatelessWidget {
@@ -12,11 +15,12 @@ class RecommendItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Get.toNamed(RouteHandler.COURSE_DETAILS, arguments: data);
+      },
       child: Container(
-          margin: EdgeInsets.only(left: 8, right: 8),
           padding: EdgeInsets.all(8),
-          width: MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery.of(context).size.width * 0.95,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.white,
@@ -34,7 +38,7 @@ class RecommendItem extends StatelessWidget {
               CustomImage(
                 data.imageUrl ?? "/assest/images/no-data.png",
                 radius: 8,
-                height: 88,
+                height: 80,
               ),
               SizedBox(
                 width: 8,
@@ -49,11 +53,11 @@ class RecommendItem extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.55,
                       child: Text(
                         data.name ?? "Course",
-                        maxLines: 1,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: textColor,
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -91,48 +95,25 @@ class RecommendItem extends StatelessWidget {
                           data.totalRating.toString(),
                           style: TextStyle(fontSize: 12, color: labelColor),
                         ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Container(
-                          height: 32,
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: primary,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: shadowColor.withOpacity(0.05),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: Offset(0, 0),
-                              ),
-                            ],
-                          ),
-                          child: Text(
-                            formatPrice(data.price ?? 0.0),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
                       ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      data.mentor?.fullName ?? "Mentor",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: textColor,
-                          fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
-              )
+              ),
+              IconButton(
+                  onPressed: () async {
+                    bool result = await Get.toNamed(RouteHandler.UPDATE_COURSE,
+                        arguments: data);
+                    if (result != null) {
+                      if (result) {
+                        await Get.find<CourseViewModel>().getCourses();
+                      }
+                    }
+                  },
+                  icon: Icon(
+                    Icons.edit,
+                    size: 20,
+                  ))
             ],
           )),
     );

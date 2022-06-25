@@ -73,18 +73,42 @@ class _AccountPageState extends State<AccountPage> {
     // ScaffoldSnackbar.of(context).show('Name updated');
   }
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
+
+  Future<void> _refresh() async {
+    await Get.find<AccountViewModel>().fetchUser();
+  }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return CustomScrollView(
+  //     slivers: <Widget>[
+  //       SliverAppBar(
+  //           backgroundColor: appBgColor,
+  //           pinned: true,
+  //           snap: true,
+  //           floating: true,
+  //           title: getHeader()),
+  //       SliverToBoxAdapter(child: getBody())
+  //     ],
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-            backgroundColor: appBgColor,
-            pinned: true,
-            snap: true,
-            floating: true,
-            title: getHeader()),
-        SliverToBoxAdapter(child: getBody())
-      ],
+    // TODO: implement build
+    return ScopedModel(
+      model: Get.find<AccountViewModel>(),
+      child: Scaffold(
+        appBar: AppBar(backgroundColor: appBgColor, title: getHeader()),
+        backgroundColor: appBgColor,
+        body: SafeArea(
+            child: RefreshIndicator(
+                key: _refreshIndicatorKey,
+                onRefresh: _refresh,
+                child: getBody())),
+      ),
     );
   }
 
@@ -109,16 +133,25 @@ class _AccountPageState extends State<AccountPage> {
       child: ScopedModelDescendant<AccountViewModel>(
           builder: (context, child, model) {
         return SingleChildScrollView(
-          padding: EdgeInsets.only(left: 15, right: 15),
+          padding: EdgeInsets.only(left: 15, right: 15, top: 12),
           child: Column(
             children: [
               Column(
                 children: [
-                  CustomImage(
-                    model.currentUser.imageUrl ?? "assets/images/no-data.png",
-                    width: 70,
-                    height: 70,
-                    radius: 20,
+                  InkWell(
+                    onTap: () async {
+                      final photoURL = await getPhotoURLFromUser();
+
+                      if (photoURL != null) {
+                        await user.updatePhotoURL(photoURL);
+                      }
+                    },
+                    child: CustomImage(
+                      model.currentUser.imageUrl ?? "assets/images/no-data.png",
+                      width: 60,
+                      height: 60,
+                      radius: 20,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -182,7 +215,15 @@ class _AccountPageState extends State<AccountPage> {
                     title: "Cập nhật thông tin",
                     leadingIcon: "assets/icons/setting.svg",
                     bgIconColor: blue,
-                    onTap: () {},
+                    onTap: () async {
+                      bool result = await Get.toNamed(RouteHandler.UPDATE,
+                          arguments: model.currentUser);
+                      if (result != null) {
+                        if (result) {
+                          await model.fetchUser();
+                        }
+                      }
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 45),
