@@ -2,25 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/SessionDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 import 'package:mentor_mentee_connecting/View/courses.dart';
 import 'package:mentor_mentee_connecting/Widgets/custom_image.dart';
 
-class CourseDetails extends StatefulWidget {
-  CourseDTO data;
+class SessionDetails extends StatefulWidget {
+  SessionDTO data;
 
-  CourseDetails({
+  SessionDetails({
     Key? key,
     required this.data,
   }) : super(key: key);
   bool isExpanded = false;
 
   @override
-  State<CourseDetails> createState() => _CourseDetailsState();
+  State<SessionDetails> createState() => _SessionDetailsState();
 }
 
-class _CourseDetailsState extends State<CourseDetails> {
+class _SessionDetailsState extends State<SessionDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,12 +55,12 @@ class _CourseDetailsState extends State<CourseDetails> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomImage(
-            widget.data.imageUrl ?? "assets/images/no-data.png",
-            radius: 15,
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-          ),
+          // CustomImage(
+          //   widget.data.imageUrl ?? "assets/images/no-data.png",
+          //   radius: 15,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 200,
+          // ),
           SizedBox(
             height: 16,
           ),
@@ -84,8 +85,8 @@ class _CourseDetailsState extends State<CourseDetails> {
               SizedBox(
                 width: 16,
               ),
-              getAttribute(
-                  Icons.star, yellow, widget.data.totalRating.toString()),
+              // getAttribute(
+              //     Icons.star, yellow, widget.data.totalRating.toString()),
             ],
           ),
           SizedBox(
@@ -166,13 +167,13 @@ class _CourseDetailsState extends State<CourseDetails> {
                     style: TextStyle(color: textColor, fontSize: 16),
                   ),
                   SizedBox(height: 6),
-                  Text(
-                    formatPrice(widget.data.price ?? 0.0),
-                    style: TextStyle(
-                        color: textColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  // Text(
+                  //   formatPrice(widget.data.price ?? 0.0),
+                  //   style: TextStyle(
+                  //       color: textColor,
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
                 ],
               ),
             ),

@@ -30,9 +30,29 @@ class SessionDAO extends BaseDAO {
   }) async {
     Response res;
     res = await request.get(
-      'sessions',
-      queryParameters: {"page": page, "size": size, "course-id": courseId}
-        ..addAll(params),
+      'sessions/$courseId',
+      queryParameters: {"page": page, "size": size}..addAll(params),
+    );
+    final sessions = SessionDTO.fromList(res.data["data"]);
+    metaDataDTO = MetaDataDTO.fromJson(res.data["metadata"]);
+    return sessions;
+  }
+
+  Future<List<SessionDTO>> getSessionsByDate(
+    DateTime dateTime, {
+    int page = 1,
+    int size = 50,
+    int? total,
+    Map<String, dynamic> params = const {},
+  }) async {
+    Response res;
+    res = await request.get(
+      'sessions/by-date',
+      queryParameters: {
+        "page": page,
+        "size": size,
+        "in-date": dateTime.toString().replaceAll(' ', 'T')
+      }..addAll(params),
     );
     final sessions = SessionDTO.fromList(res.data["data"]);
     metaDataDTO = MetaDataDTO.fromJson(res.data["metadata"]);

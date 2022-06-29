@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
+import 'package:mentor_mentee_connecting/Service/push_notification_service.dart';
 import 'package:mentor_mentee_connecting/Utils/request.dart';
 import 'package:mentor_mentee_connecting/Utils/shared_pref.dart';
 
@@ -10,17 +13,12 @@ import 'BaseDAO.dart';
 // TODO: Test Start_up Screen + FCM TOken
 
 class AccountDAO extends BaseDAO {
-  Future<AccountDTO> login(String idToken) async {
+  Future<AccountDTO> login(String idToken, String fcmToken) async {
     try {
-      // String? fcmToken;
-
-      // fcmToken = (await PushNotificationService.getInstance().getFcmToken());
-
-      Response response =
-          await request.post("authenticate/login", data: {"idToken": idToken});
+      Response response = await request.post("authenticate/login",
+          data: {"idToken": idToken, "fcmToken": fcmToken});
       final user = response.data["data"];
       final userDTO = AccountDTO.fromJson(user);
-      // log(userDTO.toJson().toString());
       final accessToken = user["accessToken"] as String;
 
       // set access token

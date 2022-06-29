@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/SessionDTO.dart';
 import 'package:mentor_mentee_connecting/View/course_detail.dart';
 import 'package:mentor_mentee_connecting/View/home.dart';
 import 'package:mentor_mentee_connecting/View/update.dart';
@@ -16,6 +17,7 @@ import 'Utils/pageNavigation.dart';
 import 'Utils/request.dart';
 import 'View/onboard.dart';
 import 'View/root_app.dart';
+import 'View/session_detail.dart';
 import 'View/sign_in.dart';
 import 'View/start_up.dart';
 import 'theme/color.dart';
@@ -48,6 +50,11 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
                 builder: (context) =>
                     CourseDetails(data: settings.arguments as CourseDTO),
+                settings: settings);
+          case RouteHandler.SESSION_DETAILS:
+            return CupertinoPageRoute(
+                builder: (context) =>
+                    SessionDetails(data: settings.arguments as SessionDTO),
                 settings: settings);
           case RouteHandler.UPDATE:
             return CupertinoPageRoute(
