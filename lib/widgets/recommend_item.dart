@@ -22,7 +22,7 @@ class RecommendItem extends StatelessWidget {
           padding: EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width * 0.95,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -36,7 +36,7 @@ class RecommendItem extends StatelessWidget {
           child: Row(
             children: [
               CustomImage(
-                data.imageUrl ?? "/assest/images/no-data.png",
+                data.imageUrl ?? "no-data.png",
                 radius: 8,
                 height: 80,
               ),

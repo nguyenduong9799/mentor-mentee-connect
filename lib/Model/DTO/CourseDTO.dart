@@ -63,7 +63,8 @@ class CourseDTO {
     slug = json['slug'];
     imageUrl = json['imageUrl'];
     startDate = DateTime.parse(json['startDate']);
-    updateDate = DateTime.parse(json['updateDate']);
+    updateDate =
+        json['updateDate'] != null ? DateTime.parse(json['updateDate']) : null;
     createDate = DateTime.parse(json['createDate']);
     finishDate = DateTime.parse(json['finishDate']);
     status = json['status'];

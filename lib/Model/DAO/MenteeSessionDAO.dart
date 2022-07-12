@@ -15,7 +15,7 @@ class MenteeSessionDAO extends BaseDAO {
     Response res;
     res = await request.get(
       'majors/$sessionId',
-      queryParameters: {"page": page ?? 1, "size": size ?? 50}..addAll(params),
+      queryParameters: {"page": page, "size": size}..addAll(params),
     );
     final listMenteeSession = MenteeSessionDTO.fromList(res.data["data"]);
     metaDataDTO = MetaDataDTO.fromJson(res.data["metadata"]);

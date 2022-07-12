@@ -71,7 +71,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             activeColor: primary,
             activeSize: Size(22.0, 10.0),
             activeShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              borderRadius: BorderRadius.all(Radius.circular(24)),
             ),
           ),
         ),

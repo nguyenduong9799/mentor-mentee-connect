@@ -22,7 +22,7 @@ class MyCourseItem extends StatelessWidget {
           padding: EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
             color: Colors.white,
             boxShadow: [
               BoxShadow(

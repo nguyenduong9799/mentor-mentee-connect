@@ -3,15 +3,15 @@ import 'package:mentor_mentee_connecting/Model/DTO/SubjectDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
 
-class CategoryItem extends StatelessWidget {
-  const CategoryItem({
+class SubjectItem extends StatelessWidget {
+  const SubjectItem({
     Key? key,
     required this.data,
     this.isSelected = false,
     this.onTap,
     this.padding = const EdgeInsets.fromLTRB(20, 15, 20, 15),
   }) : super(key: key);
-  final data;
+  final SubjectDTO data;
   final bool isSelected;
   final GestureTapCallback? onTap;
   final EdgeInsets padding;
@@ -42,7 +42,7 @@ class CategoryItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                data['name'] ?? "subject",
+                data.name ?? "subject",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

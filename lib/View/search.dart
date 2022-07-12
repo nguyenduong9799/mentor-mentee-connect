@@ -6,6 +6,7 @@ import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/subject_viewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/recommend_item.dart';
+import 'package:mentor_mentee_connecting/Widgets/subject_filter.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/category_item.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_textfield.dart';
@@ -143,7 +144,7 @@ class _SearchPageState extends State<SearchPage> {
                   currentSubject.length,
                   (index) => Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: CategoryItem(
+                    child: SubjectItem(
                       padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                       data: currentSubject[index],
                       isSelected: index == selectedCategoryIndex,

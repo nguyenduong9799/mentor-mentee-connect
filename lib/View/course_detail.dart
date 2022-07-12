@@ -9,8 +9,10 @@ import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 import 'package:mentor_mentee_connecting/Utils/format_time.dart';
 import 'package:mentor_mentee_connecting/View/courses.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/session_viewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/custom_image.dart';
+import 'package:mentor_mentee_connecting/Widgets/session_card.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CourseDetails extends StatefulWidget {
@@ -71,8 +73,65 @@ class _CourseDetailsState extends State<CourseDetails> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          CustomImage(
+            widget.data.imageUrl ?? "no-data.png",
+            radius: 15,
+            width: MediaQuery.of(context).size.width,
+            height: 180,
+          ),
+          SizedBox(
+            height: 12,
+          ),
           Text(
-            "Curriculum",
+            "Chi tiết",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          ConstrainedBox(
+              constraints: widget.isExpanded
+                  ? new BoxConstraints()
+                  : new BoxConstraints(maxHeight: 36),
+              child: new Text(
+                widget.data.description ?? "des",
+                softWrap: true,
+                overflow: TextOverflow.fade,
+              )),
+          widget.isExpanded
+              ? InkWell(
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      new Text(
+                        "show less",
+                        style: new TextStyle(color: primary),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    setState(() => widget.isExpanded = false);
+                  },
+                )
+              : new InkWell(
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      new Text(
+                        "show more",
+                        style: new TextStyle(color: primary, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    setState(() => widget.isExpanded = true);
+                  },
+                ),
+          Text(
+            "Chương trình học",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -86,15 +145,19 @@ class _CourseDetailsState extends State<CourseDetails> {
 
   Widget bottomBar() {
     return Container(
-      margin: EdgeInsets.all(16),
-      height: 70,
+      margin: EdgeInsets.all(8),
+      height: 72,
       padding: EdgeInsets.all(12),
       child: FlatButton(
         onPressed: () async {
-          // pr.hide();
-          // showStateDialog();
+          dynamic result = await Get.toNamed(RouteHandler.UPDATE_COURSE,
+              arguments: widget.data);
+          if (result != null) {
+            if (result) {
+              await Get.find<CourseViewModel>().getCourses();
+            }
+          }
         },
-        height: 40,
         padding: EdgeInsets.only(
           left: 12.0,
           right: 12.0,
@@ -102,7 +165,7 @@ class _CourseDetailsState extends State<CourseDetails> {
         textColor: Colors.white,
         color: primary,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12))),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
         child: Text("Chỉnh sửa khóa học",
             style: TextStyle(fontSize: 18, color: textBoxColor)),
       ),
@@ -151,27 +214,23 @@ class _CourseDetailsState extends State<CourseDetails> {
                   list.length,
                   (index) => Container(
                       padding: EdgeInsets.only(bottom: 12),
-                      child: buildSession(list[index])),
+                      child: SessionCard(data: list[index])),
                 ))),
           );
       }),
     );
   }
 
-  Widget buildSession(SessionDTO data,
-      {String? subject,
-      String? task,
-      String? submissionDate,
-      String? statusText,
-      int status = 0}) {
+  Widget buildSession(SessionDTO data) {
     return GestureDetector(
       onTap: () => Get.toNamed(RouteHandler.SESSION_DETAILS, arguments: data),
       child: Container(
         clipBehavior: Clip.antiAlias,
         padding: EdgeInsets.all(8),
         width: MediaQuery.of(context).size.width * 0.95,
+        // height: 80,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -187,33 +246,48 @@ class _CourseDetailsState extends State<CourseDetails> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 3,
+              flex: 5,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    data.name ?? "session",
+                    data.name ?? "Session",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 2),
+                    margin: EdgeInsets.only(top: 8),
                     child: Text(
                       "Kết thúc",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],
               ),
             ),
             Expanded(
-                flex: 1,
+                flex: 2,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(formatDateType(
-                        data.startTime ?? "1974-03-20 00:00:00.000")),
-                    Text(formatTimeType(
-                        data.startTime ?? "1974-03-20 00:00:00.000")),
+                    Text(
+                      formatDateType(
+                          data.startTime ?? "1974-03-20 00:00:00.000"),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                        formatTimeType(
+                            data.startTime ?? "1974-03-20 00:00:00.000"),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600)),
                   ],
                 ))
           ],

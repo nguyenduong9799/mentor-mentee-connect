@@ -24,7 +24,7 @@ class CustomTextBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: textBoxColor,
         border: Border.all(color: textBoxColor),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color: shadowColor.withOpacity(0.05),

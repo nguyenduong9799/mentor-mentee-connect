@@ -17,6 +17,13 @@ List categories = [
   {"name": "Finance", "icon": "assets/icons/category/finance.svg"},
 ];
 
+List dateCategories = [
+  {"name": "Hôm Nay"},
+  {"name": "Ngày Mai"},
+  {"name": "Ngày mốt"},
+  {"name": "Ngày kia"},
+];
+
 List courses = [
   {
     "id": 100,

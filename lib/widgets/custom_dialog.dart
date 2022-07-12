@@ -91,7 +91,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             backgroundColor: Colors.transparent,
             radius: Constants.avatarRadius,
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
                 child: Image(
                     image: NetworkImage(
                         "https://cdn-icons-png.flaticon.com/512/3820/3820331.png"))),

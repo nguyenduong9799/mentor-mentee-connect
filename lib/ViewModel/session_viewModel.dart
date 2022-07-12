@@ -9,6 +9,7 @@ class SessionViewModel extends BaseModel {
   SessionDAO? dao;
   MenteeSessionDAO? menteeSessionDao;
   List<SessionDTO>? listSession;
+  List<SessionDTO>? listTodaySession;
   List<MenteeSessionDTO>? listMenteeSession;
   SessionViewModel() {
     menteeSessionDao = MenteeSessionDAO();
@@ -23,6 +24,18 @@ class SessionViewModel extends BaseModel {
       setState(ViewStatus.Completed);
     } catch (e) {
       listSession = null;
+      setState(ViewStatus.Completed);
+    }
+  }
+
+  Future<void> getSessionsByDate(DateTime? date) async {
+    try {
+      setState(ViewStatus.Loading);
+      listTodaySession = await dao?.getTodaySessionsByDate(dateTime: date);
+      await Future.delayed(Duration(microseconds: 500));
+      setState(ViewStatus.Completed);
+    } catch (e) {
+      listTodaySession = null;
       setState(ViewStatus.Completed);
     }
   }

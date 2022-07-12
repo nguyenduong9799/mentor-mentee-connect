@@ -98,7 +98,7 @@ class LoginViewModel extends BaseModel {
               margin: EdgeInsets.only(left: 8, right: 8, bottom: 32),
               borderRadius: 8);
 
-          await Get.offAndToNamed(RouteHandler.NAV);
+          await Get.offAllNamed(RouteHandler.NAV);
         }
       }
       await Future.delayed(Duration(microseconds: 500));

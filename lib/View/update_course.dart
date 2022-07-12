@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mentor_mentee_connecting/Constant/view_status.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
@@ -191,14 +192,14 @@ class _UpdateCourseState extends State<UpdateCourse> {
             backgroundColor: appBarColor,
             centerTitle: true,
             toolbarHeight: 60,
-            // leading: IconButton(
-            //   onPressed: () => Get.back(),
-            //   icon: Icon(
-            //     MdiIcons.chevronLeft,
-            //     color: Colors.black,
-            //     size: 30,
-            //   ),
-            // ),
+            leading: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(
+                MdiIcons.chevronLeft,
+                color: Colors.black,
+                size: 30,
+              ),
+            ),
             title: Text(
               "Cập nhật thông tin",
               maxLines: 2,

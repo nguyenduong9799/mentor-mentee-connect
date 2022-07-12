@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mentor_mentee_connecting/Constant/view_status.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
@@ -47,12 +48,14 @@ class _UpdateState extends State<Update> {
     // UPDATE USER INFO INTO FORM
     if (user != null) {
       form.value = {
-        "name": user.fullName,
-        "phone": user.phone,
+        "name": user.fullName ?? "user",
+        "phone": user.phone ?? "12345678",
         "email": user.email,
-        "birthdate": DateTime.parse(user.dayOfBirth!.replaceAll('T', ' ')),
-        "gender": user.gender,
-        "bio": user.bio
+        "birthdate": user.dayOfBirth != null
+            ? DateTime.parse(user.dayOfBirth!.replaceAll('T', ' '))
+            : DateTime.now(),
+        "gender": user.gender ?? 1,
+        "bio": user.bio ?? " "
       };
     }
   }
@@ -188,14 +191,14 @@ class _UpdateState extends State<Update> {
             backgroundColor: appBarColor,
             centerTitle: true,
             toolbarHeight: 76,
-            // leading: IconButton(
-            //   onPressed: () => Get.back(),
-            //   icon: Icon(
-            //     MdiIcons.chevronLeft,
-            //     color: Colors.black,
-            //     size: 30,
-            //   ),
-            // ),
+            leading: IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(
+                MdiIcons.chevronLeft,
+                color: Colors.black,
+                size: 30,
+              ),
+            ),
             title: Text(
               "Cập nhật thông tin",
               maxLines: 2,

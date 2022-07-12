@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
-import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/category_box.dart';
 import 'package:mentor_mentee_connecting/widgets/feature_item.dart';
@@ -165,10 +165,13 @@ class _HomePageState extends State<HomePage> {
       child: ScopedModelDescendant<CourseViewModel>(
           builder: (context, child, model) {
         List<CourseDTO>? currentCourse = model.listCourse;
-        if (currentCourse == null)
-          return SizedBox(
-            height: 30,
-          );
+        if (currentCourse == null || currentCourse.length == 0)
+          return Center(
+              child: Text(
+            "Hiện tại chưa có khóa học nào",
+            style: TextStyle(
+                color: primary, fontSize: 20, fontWeight: FontWeight.w700),
+          ));
         else
           return Container(
             width: MediaQuery.of(context).size.width,

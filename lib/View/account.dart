@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_mentee_connecting/Constant/route_constraint.dart';
+import 'package:mentor_mentee_connecting/Utils/format_time.dart';
 import 'package:mentor_mentee_connecting/View/login.dart';
 import 'package:mentor_mentee_connecting/View/sign_in.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
@@ -80,37 +81,37 @@ class _AccountPageState extends State<AccountPage> {
     await Get.find<AccountViewModel>().fetchUser();
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return CustomScrollView(
-  //     slivers: <Widget>[
-  //       SliverAppBar(
-  //           backgroundColor: appBgColor,
-  //           pinned: true,
-  //           snap: true,
-  //           floating: true,
-  //           title: getHeader()),
-  //       SliverToBoxAdapter(child: getBody())
-  //     ],
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return ScopedModel(
-      model: Get.find<AccountViewModel>(),
-      child: Scaffold(
-        appBar: AppBar(backgroundColor: appBgColor, title: getHeader()),
-        backgroundColor: appBgColor,
-        body: SafeArea(
-            child: RefreshIndicator(
-                key: _refreshIndicatorKey,
-                onRefresh: _refresh,
-                child: getBody())),
-      ),
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+            backgroundColor: appBgColor,
+            pinned: true,
+            snap: true,
+            floating: true,
+            title: getHeader()),
+        SliverToBoxAdapter(child: getBody())
+      ],
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   // TODO: implement build
+  //   return ScopedModel(
+  //     model: Get.find<AccountViewModel>(),
+  //     child: Scaffold(
+  //       appBar: AppBar(backgroundColor: appBgColor, title: getHeader()),
+  //       backgroundColor: appBgColor,
+  //       body: SafeArea(
+  //           child: RefreshIndicator(
+  //               key: _refreshIndicatorKey,
+  //               onRefresh: _refresh,
+  //               child: getBody())),
+  //     ),
+  //   );
+  // }
 
   getHeader() {
     return Container(
@@ -133,10 +134,14 @@ class _AccountPageState extends State<AccountPage> {
       child: ScopedModelDescendant<AccountViewModel>(
           builder: (context, child, model) {
         return SingleChildScrollView(
-          padding: EdgeInsets.only(left: 15, right: 15, top: 12),
+          padding: EdgeInsets.only(
+            left: 12,
+            right: 12,
+          ),
           child: Column(
             children: [
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InkWell(
                     onTap: () async {
@@ -147,18 +152,41 @@ class _AccountPageState extends State<AccountPage> {
                       }
                     },
                     child: CustomImage(
-                      model.currentUser.imageUrl ?? "assets/images/no-data.png",
-                      width: 60,
-                      height: 60,
+                      model.currentUser.imageUrl ?? "no-data.png",
+                      width: 80,
+                      height: 80,
                       radius: 20,
                     ),
                   ),
                   SizedBox(
+                    width: 12,
                     height: 10,
                   ),
-                  Text(
-                    model.currentUser.fullName ?? "User",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.currentUser.fullName ?? "User",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        model.currentUser.email ?? "User",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        formatDateType(model.currentUser.dayOfBirth ??
+                            "1974-03-20 00:00:00.000"),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -180,7 +208,7 @@ class _AccountPageState extends State<AccountPage> {
                     Expanded(
                         child: SettingBox(
                       title: "55 hours",
-                      icon: "assets/icons/time.svg",
+                      icon: "assets/icons/wallet.svg",
                     )),
                     SizedBox(
                       width: 10,
@@ -197,9 +225,9 @@ class _AccountPageState extends State<AccountPage> {
                 height: 20,
               ),
               Container(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 12, right: 12),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(4),
                   color: cardColor,
                   boxShadow: [
                     BoxShadow(
@@ -216,7 +244,7 @@ class _AccountPageState extends State<AccountPage> {
                     leadingIcon: "assets/icons/setting.svg",
                     bgIconColor: blue,
                     onTap: () async {
-                      bool result = await Get.toNamed(RouteHandler.UPDATE,
+                      dynamic result = await Get.toNamed(RouteHandler.UPDATE,
                           arguments: model.currentUser);
                       if (result != null) {
                         if (result) {
@@ -257,9 +285,9 @@ class _AccountPageState extends State<AccountPage> {
                 height: 20,
               ),
               Container(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 12, right: 12),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(4),
                   color: cardColor,
                   boxShadow: [
                     BoxShadow(
@@ -298,7 +326,7 @@ class _AccountPageState extends State<AccountPage> {
               Container(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(4),
                   color: cardColor,
                   boxShadow: [
                     BoxShadow(
@@ -330,7 +358,7 @@ class _AccountPageState extends State<AccountPage> {
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
-    Get.toNamed(RouteHandler.LOGIN);
+    Get.offAllNamed(RouteHandler.LOGIN);
   }
 
   Future<String?> getPhotoURLFromUser() async {

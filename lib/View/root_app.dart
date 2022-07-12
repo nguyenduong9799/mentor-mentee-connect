@@ -29,18 +29,18 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/search.svg",
       "active_icon": "assets/icons/search.svg",
-      "page": SearchPage(),
+      "page": SearchPage()
     },
     {
       "icon": "assets/icons/play.svg",
       "active_icon": "assets/icons/play.svg",
-      "page": CoursesPage(),
-    },
-    {
-      "icon": "assets/icons/chat.svg",
-      "active_icon": "assets/icons/chat.svg",
       "page": MyActivityPage(),
     },
+    // {
+    //   "icon": "assets/icons/chat.svg",
+    //   "active_icon": "assets/icons/chat.svg",
+    //   "page": CoursesPage()
+    // },
     {
       "icon": "assets/icons/profile.svg",
       "active_icon": "assets/icons/profile.svg",
@@ -111,7 +111,7 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
       decoration: BoxDecoration(
           color: bottomBarColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+              topLeft: Radius.circular(24), topRight: Radius.circular(24)),
           boxShadow: [
             BoxShadow(
                 color: shadowColor.withOpacity(0.1),

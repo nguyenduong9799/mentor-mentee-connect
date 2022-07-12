@@ -38,11 +38,11 @@ class SessionDAO extends BaseDAO {
     return sessions;
   }
 
-  Future<List<SessionDTO>> getSessionsByDate(
-    DateTime dateTime, {
+  Future<List<SessionDTO>> getTodaySessionsByDate({
     int page = 1,
     int size = 50,
     int? total,
+    DateTime? dateTime,
     Map<String, dynamic> params = const {},
   }) async {
     Response res;

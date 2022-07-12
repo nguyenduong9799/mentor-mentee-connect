@@ -18,7 +18,7 @@ class StartUpView extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/splash_bg.png"),
+                image: AssetImage("assets/images/background_blue.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -34,7 +34,7 @@ class StartUpView extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      "UNISB",
+                      "Mentee Connect",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 34,
