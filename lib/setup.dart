@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/major_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/root_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/session_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/subject_viewModel.dart';
@@ -26,4 +27,5 @@ void createRouteBindings() async {
   Get.put(AccountViewModel());
   Get.put(SubjectViewModel());
   Get.put(SessionViewModel());
+  Get.put(MajorViewModel());
 }

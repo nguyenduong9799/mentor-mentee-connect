@@ -10,10 +10,10 @@ class CourseViewModel extends BaseModel {
     courseDAO = CourseDAO();
   }
 
-  Future<void> getCourses() async {
+  Future<void> getCourses({majorId}) async {
     try {
       setState(ViewStatus.Loading);
-      listCourse = await courseDAO?.getAllCourses();
+      listCourse = await courseDAO?.getAllCourses(params: {'id': majorId});
       await Future.delayed(Duration(microseconds: 500));
       setState(ViewStatus.Completed);
     } catch (e) {

@@ -93,7 +93,7 @@ class _SessionDetailsState extends State<SessionDetails> {
             height: 12,
           ),
           Text(
-            "Description",
+            "Chi tiết",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -148,57 +148,23 @@ class _SessionDetailsState extends State<SessionDetails> {
   Widget bottomBar() {
     return Container(
       height: 80,
-      padding: EdgeInsets.only(left: 12, right: 12, bottom: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 4,
-            child: Container(
-              height: 50,
-              alignment: Alignment.centerLeft,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Price",
-                    style: TextStyle(color: textColor, fontSize: 16),
-                  ),
-                  SizedBox(height: 6),
-                  // Text(
-                  //   formatPrice(widget.data.price ?? 0.0),
-                  //   style: TextStyle(
-                  //       color: textColor,
-                  //       fontSize: 18,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 8,
-            child: FlatButton(
-              onPressed: () async {
-                // pr.hide();
-                // showStateDialog();
-              },
-              height: 50,
-              padding: EdgeInsets.only(
-                left: 8.0,
-                right: 8.0,
-              ),
-              textColor: Colors.white,
-              color: primary,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: Text("Buy now",
-                  style: TextStyle(fontSize: 18, color: textBoxColor)),
-            ),
-          ),
-        ],
+      padding: EdgeInsets.all(16),
+      child: FlatButton(
+        onPressed: () async {
+          // pr.hide();
+          // showStateDialog();
+        },
+        height: 50,
+        padding: EdgeInsets.only(
+          left: 8.0,
+          right: 8.0,
+        ),
+        textColor: Colors.white,
+        color: primary,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        child: Text("Chỉnh sửa",
+            style: TextStyle(fontSize: 18, color: textBoxColor)),
       ),
     );
   }

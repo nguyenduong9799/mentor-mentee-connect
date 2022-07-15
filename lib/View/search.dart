@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
-import 'package:mentor_mentee_connecting/Model/DTO/SubjectDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/MajorDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
-import 'package:mentor_mentee_connecting/ViewModel/subject_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/major_viewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/recommend_item.dart';
 import 'package:mentor_mentee_connecting/Widgets/subject_filter.dart';
-import 'package:mentor_mentee_connecting/utils/data.dart';
-import 'package:mentor_mentee_connecting/widgets/category_item.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_textfield.dart';
-import 'package:mentor_mentee_connecting/widgets/feature_item.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SearchPage extends StatefulWidget {
@@ -126,12 +123,12 @@ class _SearchPageState extends State<SearchPage> {
 
   int selectedCategoryIndex = 0;
   Widget buildCategory() {
-    return ScopedModel<SubjectViewModel>(
-        model: Get.find<SubjectViewModel>(),
-        child: ScopedModelDescendant<SubjectViewModel>(
+    return ScopedModel<MajorViewModel>(
+        model: Get.find<MajorViewModel>(),
+        child: ScopedModelDescendant<MajorViewModel>(
             builder: (context, child, model) {
-          List<SubjectDTO>? currentSubject = model.listSubject;
-          if (currentSubject == null)
+          List<MajorDTO>? currentMajor = model.listMajor;
+          if (currentMajor == null)
             return SizedBox(
               height: 30,
             );
@@ -141,12 +138,12 @@ class _SearchPageState extends State<SearchPage> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(
-                  currentSubject.length,
+                  currentMajor.length,
                   (index) => Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: SubjectItem(
                       padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                      data: currentSubject[index],
+                      data: currentMajor[index],
                       isSelected: index == selectedCategoryIndex,
                       onTap: () {
                         setState(() {

@@ -14,7 +14,7 @@ class MajorDAO extends BaseDAO {
     Response res;
     res = await request.get(
       'majors',
-      queryParameters: {"page": page ?? 1, "size": size ?? 50}..addAll(params),
+      queryParameters: {"page": page, "size": size}..addAll(params),
     );
     final majors = MajorDTO.fromList(res.data["data"]);
     metaDataDTO = MetaDataDTO.fromJson(res.data["metadata"]);

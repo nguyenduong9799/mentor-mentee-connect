@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/MajorDTO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/SubjectDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
@@ -11,7 +12,7 @@ class SubjectItem extends StatelessWidget {
     this.onTap,
     this.padding = const EdgeInsets.fromLTRB(20, 15, 20, 15),
   }) : super(key: key);
-  final SubjectDTO data;
+  final MajorDTO data;
   final bool isSelected;
   final GestureTapCallback? onTap;
   final EdgeInsets padding;
