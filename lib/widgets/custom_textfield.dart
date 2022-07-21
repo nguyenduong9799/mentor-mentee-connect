@@ -27,7 +27,7 @@ class CustomTextBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: shadowColor.withOpacity(0.05),
+            color: shadowColor.withOpacity(0.2),
             spreadRadius: .5,
             blurRadius: .5,
             offset: Offset(0, 1), // changes position of shadow

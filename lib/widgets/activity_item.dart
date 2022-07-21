@@ -21,11 +21,11 @@ class ActivityItem extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withOpacity(0.8),
               spreadRadius: 1,
               blurRadius: 1,
               offset: Offset(1, 1), // changes position of shadow

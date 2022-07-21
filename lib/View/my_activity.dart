@@ -60,9 +60,9 @@ class _MyActivityPageState extends State<MyActivityPage> {
                   child: Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "My Activity",
+                        "Hoạt động của bạn",
                         style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 20,
                             color: Colors.black87,
                             fontWeight: FontWeight.w600),
                       )),

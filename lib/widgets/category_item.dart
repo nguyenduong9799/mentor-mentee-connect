@@ -29,7 +29,7 @@ class CategoryItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: shadowColor.withOpacity(0.07),
+              color: shadowColor.withOpacity(0.2),
               spreadRadius: .5,
               blurRadius: .5,
               offset: const Offset(0, 1), // changes position of shadow

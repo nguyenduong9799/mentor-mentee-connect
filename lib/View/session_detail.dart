@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/MenteeSessionDTO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/SessionDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
+import 'package:mentor_mentee_connecting/Utils/data.dart';
 import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 import 'package:mentor_mentee_connecting/View/courses.dart';
+import 'package:mentor_mentee_connecting/ViewModel/menteeSession_viewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/custom_image.dart';
+import 'package:mentor_mentee_connecting/Widgets/mentee_card.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class SessionDetails extends StatefulWidget {
   SessionDTO data;
@@ -23,29 +28,37 @@ class SessionDetails extends StatefulWidget {
 
 class _SessionDetailsState extends State<SessionDetails> {
   @override
+  void initState() {
+    super.initState();
+    Get.find<MenteeSessionViewModel>()
+        .getAllMenteeBySession(widget.data.id ?? 0);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          backgroundColor: appBarColor,
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(
-              MdiIcons.chevronLeft,
-              color: Colors.black,
-            ),
-          ),
-          title: Text(
-            "Session Detail",
-            style: TextStyle(
-              color: textColor,
-              fontSize: 20,
-            ),
+      appBar: AppBar(
+        elevation: 2,
+        backgroundColor: appBarColor,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: Icon(
+            MdiIcons.chevronLeft,
+            color: Colors.black,
           ),
         ),
-        body: buildBody(),
-        bottomNavigationBar: bottomBar());
+        title: Text(
+          widget.data.name ?? "Course",
+          style: TextStyle(
+            color: textColor,
+            fontSize: 20,
+          ),
+        ),
+      ),
+      body: buildBody(),
+      // bottomNavigationBar: bottomBar()
+    );
   }
 
   buildBody() {
@@ -61,34 +74,34 @@ class _SessionDetailsState extends State<SessionDetails> {
           //   width: MediaQuery.of(context).size.width,
           //   height: 200,
           // ),
-          SizedBox(
-            height: 16,
-          ),
-          Text(
-            widget.data.name ?? "Course",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              getAttribute(Icons.play_circle_outlined, labelColor, "12"),
-              SizedBox(
-                width: 16,
-              ),
-              getAttribute(Icons.schedule_rounded, labelColor, "12"),
-              SizedBox(
-                width: 16,
-              ),
-              // getAttribute(
-              //     Icons.star, yellow, widget.data.totalRating.toString()),
-            ],
-          ),
+          // SizedBox(
+          //   height: 16,
+          // ),
+          // Text(
+          //   widget.data.name ?? "Course",
+          //   maxLines: 2,
+          //   overflow: TextOverflow.ellipsis,
+          //   style: TextStyle(
+          //       fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
+          // ),
+          // SizedBox(
+          //   height: 12,
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.start,
+          //   children: [
+          //     getAttribute(Icons.play_circle_outlined, labelColor, "12"),
+          //     SizedBox(
+          //       width: 16,
+          //     ),
+          //     getAttribute(Icons.schedule_rounded, labelColor, "12"),
+          //     SizedBox(
+          //       width: 16,
+          //     ),
+          //     // getAttribute(
+          //     //     Icons.star, yellow, widget.data.totalRating.toString()),
+          //   ],
+          // ),
           SizedBox(
             height: 12,
           ),
@@ -97,7 +110,7 @@ class _SessionDetailsState extends State<SessionDetails> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                fontSize: 16, color: textColor, fontWeight: FontWeight.w600),
+                fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
           ),
           SizedBox(
             height: 12,
@@ -139,7 +152,13 @@ class _SessionDetailsState extends State<SessionDetails> {
                   onTap: () {
                     setState(() => widget.isExpanded = true);
                   },
-                )
+                ),
+          Text(
+            "Danh sách mentee",
+            style: TextStyle(
+                fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
+          ),
+          getMentees()
         ],
       ),
     );
@@ -253,6 +272,38 @@ class _SessionDetailsState extends State<SessionDetails> {
           ),
         ],
       ),
+    );
+  }
+
+  getMentees() {
+    return ScopedModel<MenteeSessionViewModel>(
+      model: Get.find<MenteeSessionViewModel>(),
+      child: ScopedModelDescendant<MenteeSessionViewModel>(
+          builder: (context, child, model) {
+        List<MenteeSessionDTO>? list = model.listMenteeSession;
+        if (list == null || list.length == 0)
+          return Center(
+            child: Container(
+              margin: EdgeInsets.only(top: 24),
+              height: 30,
+              child: Text(
+                "Hiện tai chưa có mentee nào",
+                style: TextStyle(color: primary, fontSize: 20),
+              ),
+            ),
+          );
+        else
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.only(top: 16),
+              child: Column(
+                  children: List.generate(
+                      list.length, (index) => MenteeCard(data: list[index]))),
+            ),
+          );
+      }),
     );
   }
 }

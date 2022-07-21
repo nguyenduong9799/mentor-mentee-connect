@@ -65,8 +65,10 @@ class CourseDTO {
     startDate = DateTime.parse(json['startDate']);
     updateDate =
         json['updateDate'] != null ? DateTime.parse(json['updateDate']) : null;
-    createDate = DateTime.parse(json['createDate']);
-    finishDate = DateTime.parse(json['finishDate']);
+    createDate =
+        json['createDate'] != null ? DateTime.parse(json['createDate']) : null;
+    finishDate =
+        json['finishDate'] != null ? DateTime.parse(json['finishDate']) : null;
     status = json['status'];
     isActive = json['isActive'];
     type = json['type'];
@@ -98,10 +100,10 @@ class CourseDTO {
     data['price'] = this.price;
     data['slug'] = this.slug;
     data['imageUrl'] = this.imageUrl;
-    data['startDate'] = this.startDate.toString();
-    data['updateDate'] = this.updateDate.toString();
-    data['createDate'] = this.createDate.toString();
-    data['finishDate'] = this.finishDate.toString();
+    data['startDate'] = this.startDate.toString().replaceAll(' ', 'T');
+    data['updateDate'] = this.updateDate.toString().replaceAll(' ', 'T');
+    data['createDate'] = this.createDate.toString().replaceAll(' ', 'T');
+    data['finishDate'] = this.finishDate.toString().replaceAll(' ', 'T');
     data['status'] = this.status;
     data['isActive'] = this.isActive;
     data['type'] = this.type;

@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mentor_mentee_connecting/Constant/route_constraint.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/CertificateDTO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/SessionDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
+import 'package:mentor_mentee_connecting/Utils/constant.dart';
 import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 import 'package:mentor_mentee_connecting/Utils/format_time.dart';
 import 'package:mentor_mentee_connecting/View/courses.dart';
@@ -15,20 +17,20 @@ import 'package:mentor_mentee_connecting/Widgets/custom_image.dart';
 import 'package:mentor_mentee_connecting/Widgets/session_card.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class CourseDetails extends StatefulWidget {
-  CourseDTO data;
+class CertificateDetailsPage extends StatefulWidget {
+  CertificateDTO data;
 
-  CourseDetails({
+  CertificateDetailsPage({
     Key? key,
     required this.data,
   }) : super(key: key);
   bool isExpanded = false;
 
   @override
-  State<CourseDetails> createState() => _CourseDetailsState();
+  State<CertificateDetailsPage> createState() => _CertificateDetailsPageState();
 }
 
-class _CourseDetailsState extends State<CourseDetails> {
+class _CertificateDetailsPageState extends State<CertificateDetailsPage> {
   @override
   void initState() {
     super.initState();
@@ -38,32 +40,32 @@ class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: appBgColor,
-        appBar: AppBar(
-          elevation: 3,
-          backgroundColor: appBarColor,
-          centerTitle: true,
-          toolbarHeight: 76,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(
-              MdiIcons.chevronLeft,
-              color: Colors.black,
-              size: 30,
-            ),
-          ),
-          title: Text(
-            widget.data.name ?? "Details",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: textColor,
-              fontSize: 20,
-            ),
+      backgroundColor: appBgColor,
+      appBar: AppBar(
+        elevation: 3,
+        backgroundColor: appBarColor,
+        centerTitle: true,
+        toolbarHeight: 76,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: Icon(
+            MdiIcons.chevronLeft,
+            color: Colors.black,
+            size: 30,
           ),
         ),
-        body: buildBody(),
-        bottomNavigationBar: bottomBar());
+        title: Text(
+          widget.data.name ?? "Chi tiết chứng chỉ",
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            color: textColor,
+            fontSize: 20,
+          ),
+        ),
+      ),
+      body: buildBody(),
+    );
   }
 
   buildBody() {
@@ -73,161 +75,54 @@ class _CourseDetailsState extends State<CourseDetails> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomImage(
-            widget.data.imageUrl ?? "no-data.png",
-            radius: 12,
-            width: MediaQuery.of(context).size.width,
-            height: 140,
-          ),
           SizedBox(
             height: 8,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 8,
+              Text(
+                "Trạng thái:",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 16,
+                    color: textColor,
+                    fontWeight: FontWeight.w500),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Ngày bắt đầu:",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    formatDateType(widget.data.startDate.toString()!),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Ngày kết thúc:",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    formatDateType(widget.data.finishDate.toString()!),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Địa điểm:",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    widget.data.location ?? "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
+              Text(
+                widget.data.status == CertificateStatus.Approved
+                    ? "Đã được duyệt"
+                    : widget.data.status == CertificateStatus.Denied
+                        ? "Bị từ chối"
+                        : "Đang đợi duyệt",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 16,
+                    color: textColor,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),
           SizedBox(
             height: 12,
           ),
-          Text(
-            "Chi tiết",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
+          CustomImage(widget.data.imageUrl ?? "no-data.png",
+              radius: 12,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.7,
+              fit: BoxFit.fitWidth,
+              isShadow: false),
+
+          SizedBox(
+            height: 8,
           ),
           SizedBox(
             height: 12,
           ),
-          ConstrainedBox(
-              constraints: widget.isExpanded
-                  ? new BoxConstraints()
-                  : new BoxConstraints(maxHeight: 36),
-              child: new Text(
-                widget.data.description ?? "des",
-                softWrap: true,
-                overflow: TextOverflow.fade,
-              )),
-          widget.isExpanded
-              ? InkWell(
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      new Text(
-                        "Hiện bớt",
-                        style: new TextStyle(color: primary),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    setState(() => widget.isExpanded = false);
-                  },
-                )
-              : new InkWell(
-                  child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      new Text(
-                        "Hiện thêm",
-                        style: new TextStyle(color: primary, fontSize: 16),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    setState(() => widget.isExpanded = true);
-                  },
-                ),
-          Text(
-            "Chương trình học",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                fontSize: 20, color: textColor, fontWeight: FontWeight.w600),
-          ),
-          buildListSession()
+          // buildListSession()
         ],
       ),
     );
@@ -350,11 +245,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                   Container(
                     margin: EdgeInsets.only(top: 8),
                     child: Text(
-                      data.status == 0
-                          ? "Chưa bắt đầu"
-                          : data.status == 1
-                              ? "Bắt đầu học"
-                              : "Kết thúc nào",
+                      "Kết thúc",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                     ),

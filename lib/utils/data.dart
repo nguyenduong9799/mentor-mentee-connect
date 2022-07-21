@@ -24,6 +24,14 @@ List dateCategories = [
   {"name": "Ngày kia"},
 ];
 
+List courseStatus = [
+  {"name": "Chờ đủ mentee", "value": 3},
+  {"name": "Đã bắt đầu", "value": 5},
+  {"name": "Đã kết thúc", "value": 6},
+  {"name": "Chờ duyệt", "value": 2},
+  {"name": "Bị hủy", "value": 4},
+];
+
 List courses = [
   {
     "id": 100,

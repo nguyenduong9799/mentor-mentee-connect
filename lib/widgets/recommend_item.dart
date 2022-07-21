@@ -26,7 +26,7 @@ class RecommendItem extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withOpacity(0.8),
                 spreadRadius: 1,
                 blurRadius: 1,
                 offset: Offset(1, 1), // changes position of shadow
@@ -34,70 +34,30 @@ class RecommendItem extends StatelessWidget {
             ],
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomImage(
                 data.imageUrl ?? "no-data.png",
                 radius: 8,
-                height: 80,
+                height: 60,
+                width: 60,
               ),
               SizedBox(
                 width: 8,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.55,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.55,
-                      child: Text(
-                        data.name ?? "Course",
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.schedule_rounded,
-                          color: labelColor,
-                          size: 16,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "Session",
-                          style: TextStyle(fontSize: 12, color: labelColor),
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: orange,
-                          size: 16,
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          data.totalRating.toString(),
-                          style: TextStyle(fontSize: 12, color: labelColor),
-                        ),
-                      ],
-                    ),
-                  ],
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Text(
+                    data.name ?? "Course",
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: textColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               IconButton(
@@ -113,6 +73,7 @@ class RecommendItem extends StatelessWidget {
                   icon: Icon(
                     Icons.edit,
                     size: 20,
+                    color: secondary,
                   ))
             ],
           )),

@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/certificate_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/major_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/menteeSession_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/root_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/session_viewModel.dart';
 import 'package:mentor_mentee_connecting/ViewModel/subject_viewModel.dart';
@@ -28,4 +30,6 @@ void createRouteBindings() async {
   Get.put(SubjectViewModel());
   Get.put(SessionViewModel());
   Get.put(MajorViewModel());
+  Get.put(MenteeSessionViewModel());
+  Get.put(CertificateViewModel());
 }

@@ -27,4 +27,6 @@ class RouteHandler {
   static const String COURSE_DETAILS = "/course_details";
   static const String UPDATE_COURSE = "/update_course";
   static const String SESSION_DETAILS = "/session_details";
+  static const String CERTIFICATE = "/certificate";
+  static const String CERTIFICATE_DETAILS = "/certificate_details";
 }

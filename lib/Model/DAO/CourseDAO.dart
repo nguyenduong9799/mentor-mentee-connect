@@ -53,4 +53,10 @@ class CourseDAO extends BaseDAO {
     metaDataDTO = MetaDataDTO.fromJson(res.data["metadata"]);
     return courses;
   }
+
+  Future<CourseDTO> updateCourse(CourseDTO updateCourse) async {
+    var dataJson = updateCourse.toJson();
+    Response res = await request.put("courses", data: dataJson);
+    return CourseDTO.fromJson(res.data);
+  }
 }

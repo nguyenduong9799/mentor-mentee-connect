@@ -24,18 +24,18 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
     {
       "icon": "assets/icons/home.svg",
       "active_icon": "assets/icons/home.svg",
-      "page": HomePage(),
-    },
-    {
-      "icon": "assets/icons/wallet.svg",
-      "active_icon": "assets/icons/wallet.svg",
-      "page": SearchPage()
+      "page": SearchPage(),
     },
     {
       "icon": "assets/icons/play.svg",
       "active_icon": "assets/icons/play.svg",
       "page": MyActivityPage(),
     },
+    // {
+    //   "icon": "assets/icons/wallet.svg",
+    //   "active_icon": "assets/icons/wallet.svg",
+    //   "page": CoursesPage()
+    // },
     // {
     //   "icon": "assets/icons/chat.svg",
     //   "active_icon": "assets/icons/chat.svg",
@@ -111,19 +111,19 @@ class _RootAppState extends State<RootApp> with TickerProviderStateMixin {
       decoration: BoxDecoration(
           color: bottomBarColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           boxShadow: [
             BoxShadow(
-                color: shadowColor.withOpacity(0.1),
+                color: shadowColor.withOpacity(0.2),
                 blurRadius: 1,
                 spreadRadius: 1,
                 offset: Offset(1, 1))
           ]),
       child: Padding(
           padding: const EdgeInsets.only(
-            left: 25,
-            right: 25,
-            bottom: 15,
+            left: 32,
+            right: 32,
+            bottom: 12,
           ),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

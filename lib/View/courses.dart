@@ -148,7 +148,7 @@ class _CoursesPageState extends State<CoursesPage>
                         courses.length,
                         (index) => Padding(
                             padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                            child: MyCourseItem(
+                            child: RecommendItem(
                               data: courses[index],
                               onTap: () {},
                             )))));

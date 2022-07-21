@@ -22,62 +22,51 @@ class SessionCard extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withOpacity(0.8),
               spreadRadius: 1,
               blurRadius: 1,
               offset: Offset(1, 1), // changes position of shadow
             ),
           ],
         ),
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 5,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    data.name ?? "Session",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 8),
-                    child: Text(
-                      "Kết thúc",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(
+                data.name ?? "Session",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
             ),
-            Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      formatDateType(
-                          data.startTime ?? "1974-03-20 00:00:00.000"),
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                    "Từ " +
                         formatTimeType(
-                            data.startTime ?? "1974-03-20 00:00:00.000"),
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
-                  ],
-                ))
+                            data.startTime ?? "1974-03-20 00:00:00.000") +
+                        " đến " +
+                        formatTimeType(
+                            data.endTime ?? "1974-03-20 00:00:00.000"),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  formatDateType(data.startTime ?? "1974-03-20 00:00:00.000"),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+              ],
+            )
           ],
         ),
       ),

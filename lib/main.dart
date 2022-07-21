@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/SessionDTO.dart';
+import 'package:mentor_mentee_connecting/View/certificate.dart';
+import 'package:mentor_mentee_connecting/View/certificate_detail.dart';
 import 'package:mentor_mentee_connecting/View/course_detail.dart';
 import 'package:mentor_mentee_connecting/View/home.dart';
 import 'package:mentor_mentee_connecting/View/update.dart';
@@ -13,6 +15,7 @@ import 'package:mentor_mentee_connecting/setup.dart';
 
 import 'Constant/route_constraint.dart';
 import 'Model/DTO/AccountDTO.dart';
+import 'Model/DTO/CertificateDTO.dart';
 import 'Utils/pageNavigation.dart';
 import 'Utils/request.dart';
 import 'View/onboard.dart';
@@ -65,6 +68,14 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
                 builder: (context) =>
                     UpdateCourse(course: settings.arguments as CourseDTO),
+                settings: settings);
+          case RouteHandler.CERTIFICATE:
+            return CupertinoPageRoute(
+                builder: (context) => MyCertificatePage(), settings: settings);
+          case RouteHandler.CERTIFICATE_DETAILS:
+            return CupertinoPageRoute(
+                builder: (context) => CertificateDetailsPage(
+                    data: settings.arguments as CertificateDTO),
                 settings: settings);
           case RouteHandler.NAV:
             return CupertinoPageRoute(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mentor_mentee_connecting/Constant/view_status.dart';
 import 'package:mentor_mentee_connecting/Model/DAO/AccountDAO.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/UserWallet.dart';
 import 'package:mentor_mentee_connecting/Utils/shared_pref.dart';
 
 import 'base_model.dart';
@@ -10,6 +11,7 @@ import 'base_model.dart';
 class AccountViewModel extends BaseModel {
   late AccountDAO _dao;
   late AccountDTO currentUser;
+  late UserWallet wallet;
 
   AccountViewModel() {
     _dao = AccountDAO();
@@ -28,6 +30,11 @@ class AccountViewModel extends BaseModel {
 
       String? token = await getToken();
       print(token.toString());
+      if (currentUser.phone != null || currentUser.phone != "") {
+        final phoneNumber = currentUser.phone as String;
+        wallet = await _dao.getUserWallet(phoneNumber);
+        print(wallet);
+      }
 
       // PackageInfo packageInfo = await PackageInfo.fromPlatform();
       // version = packageInfo.version;

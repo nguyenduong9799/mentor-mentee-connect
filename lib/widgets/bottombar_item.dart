@@ -25,12 +25,12 @@ class BottomBarItem extends StatelessWidget {
         curve: Curves.fastOutSlowIn,
         padding: EdgeInsets.all(7),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(32),
           color: bottomBarColor,
           boxShadow: [
             if (isActive)
               BoxShadow(
-                color: shadowColor.withOpacity(0.1),
+                color: shadowColor.withOpacity(0.2),
                 spreadRadius: 2,
                 blurRadius: 2,
                 offset: Offset(0, 0), // changes position of shadow
@@ -40,8 +40,8 @@ class BottomBarItem extends StatelessWidget {
         child: SvgPicture.asset(
           icon,
           color: isActive ? activeColor : color,
-          width: 23,
-          height: 23,
+          width: 28,
+          height: 28,
         ),
       ),
     );

@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
       child: ScopedModelDescendant<AccountViewModel>(
         builder: (context, child, model) {
           return Container(
+            height: 200,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         color: textColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                        fontSize: 16,
                       ),
                     ),
                   ],
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: Text("Your Courses",
+            child: Text("Khóa học",
                 style: TextStyle(
                   color: textColor,
                   fontWeight: FontWeight.w600,

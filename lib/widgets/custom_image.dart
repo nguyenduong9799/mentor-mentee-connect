@@ -39,7 +39,7 @@ class CustomImage extends StatelessWidget {
           boxShadow: [
             if (isShadow)
               BoxShadow(
-                color: shadowColor.withOpacity(0.1),
+                color: shadowColor.withOpacity(0.2),
                 spreadRadius: 1,
                 blurRadius: 1,
                 offset: Offset(0, 1), // changes position of shadow

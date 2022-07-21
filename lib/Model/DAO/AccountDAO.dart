@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_mentee_connecting/Model/DTO/AccountDTO.dart';
+import 'package:mentor_mentee_connecting/Model/DTO/UserWallet.dart';
 import 'package:mentor_mentee_connecting/Service/push_notification_service.dart';
 import 'package:mentor_mentee_connecting/Utils/request.dart';
 import 'package:mentor_mentee_connecting/Utils/shared_pref.dart';
@@ -79,7 +80,26 @@ class AccountDAO extends BaseDAO {
 
   Future<AccountDTO> updateUser(AccountDTO updateUser) async {
     var dataJson = updateUser.toJson();
-    Response res = await request.put("users", data: dataJson);
+    Response res = await request.put("users/me", data: dataJson);
     return AccountDTO.fromJson(res.data);
+  }
+
+  Future<UserWallet> linkAccountToWallet(String phone) async {
+    try {
+      Response response =
+          await request.post("wallet", data: {'phoneNumber': phone});
+      // set access token
+      return UserWallet.fromJson(response.data['data']);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<UserWallet> getUserWallet(String phone) async {
+    Response response = await request.get('wallet/$phone');
+    // set access tokenF
+    final user = response.data;
+    return UserWallet.fromJson(user);
+    // return AccountDTO(uid: idToken, name: "Default Name");
   }
 }

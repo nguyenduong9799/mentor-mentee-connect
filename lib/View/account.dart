@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mentor_mentee_connecting/Constant/route_constraint.dart';
+import 'package:mentor_mentee_connecting/Utils/format_price.dart';
 import 'package:mentor_mentee_connecting/Utils/format_time.dart';
 import 'package:mentor_mentee_connecting/View/login.dart';
 import 'package:mentor_mentee_connecting/View/sign_in.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/theme/color.dart';
 import 'package:mentor_mentee_connecting/utils/data.dart';
 import 'package:mentor_mentee_connecting/widgets/custom_image.dart';
@@ -119,7 +121,7 @@ class _AccountPageState extends State<AccountPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Account",
+            "Tài khoản",
             style: TextStyle(
                 color: textColor, fontSize: 24, fontWeight: FontWeight.w600),
           ),
@@ -169,14 +171,15 @@ class _AccountPageState extends State<AccountPage> {
                       Text(
                         model.currentUser.fullName ?? "User",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 4,
                       ),
                       Text(
                         model.currentUser.email ?? "User",
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 4,
@@ -184,7 +187,8 @@ class _AccountPageState extends State<AccountPage> {
                       Text(
                         formatDateType(model.currentUser.dayOfBirth ??
                             "1974-03-20 00:00:00.000"),
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -199,7 +203,12 @@ class _AccountPageState extends State<AccountPage> {
                   children: [
                     Expanded(
                         child: SettingBox(
-                      title: "12 courses",
+                      title: (Get.find<CourseViewModel>()
+                                  .listCourse!
+                                  .length
+                                  .toString() ??
+                              "0") +
+                          " Courses",
                       icon: "assets/icons/work.svg",
                     )),
                     SizedBox(
@@ -207,7 +216,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     Expanded(
                         child: SettingBox(
-                      title: "55 hours",
+                      title: formatBean(model.wallet.point ?? 0) + " Bean",
                       icon: "assets/icons/wallet.svg",
                     )),
                     SizedBox(
@@ -231,7 +240,7 @@ class _AccountPageState extends State<AccountPage> {
                   color: cardColor,
                   boxShadow: [
                     BoxShadow(
-                      color: shadowColor.withOpacity(0.1),
+                      color: shadowColor.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 1,
                       offset: Offset(0, 1), // changes position of shadow
@@ -274,10 +283,12 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                   SettingItem(
-                    title: "Bookmark",
+                    title: "Chứng chỉ",
                     leadingIcon: "assets/icons/bookmark.svg",
                     bgIconColor: primary,
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(RouteHandler.CERTIFICATE);
+                    },
                   ),
                 ]),
               ),
@@ -291,7 +302,7 @@ class _AccountPageState extends State<AccountPage> {
                   color: cardColor,
                   boxShadow: [
                     BoxShadow(
-                      color: shadowColor.withOpacity(0.1),
+                      color: shadowColor.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 1,
                       offset: Offset(0, 1), // changes position of shadow
@@ -330,7 +341,7 @@ class _AccountPageState extends State<AccountPage> {
                   color: cardColor,
                   boxShadow: [
                     BoxShadow(
-                      color: shadowColor.withOpacity(0.1),
+                      color: shadowColor.withOpacity(0.2),
                       spreadRadius: 1,
                       blurRadius: 1,
                       offset: Offset(0, 1), // changes position of shadow

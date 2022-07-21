@@ -14,11 +14,17 @@ class MenteeSessionDAO extends BaseDAO {
   }) async {
     Response res;
     res = await request.get(
-      'majors/$sessionId',
+      'sessions/detail/$sessionId',
       queryParameters: {"page": page, "size": size}..addAll(params),
     );
     final listMenteeSession = MenteeSessionDTO.fromList(res.data["data"]);
     metaDataDTO = MetaDataDTO.fromJson(res.data["metadata"]);
     return listMenteeSession;
+  }
+
+  Future<void> checkAttendant(int id) async {
+    Response res = await request.put("sessions/update-attendance", data: [
+      {"id": id, "isAttended": 1}
+    ]);
   }
 }

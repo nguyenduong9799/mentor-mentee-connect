@@ -7,6 +7,7 @@ import 'package:mentor_mentee_connecting/Model/DTO/CourseDTO.dart';
 import 'package:mentor_mentee_connecting/Theme/color.dart';
 import 'package:mentor_mentee_connecting/Utils/constant.dart';
 import 'package:mentor_mentee_connecting/ViewModel/account_viewModel.dart';
+import 'package:mentor_mentee_connecting/ViewModel/course_ViewModel.dart';
 import 'package:mentor_mentee_connecting/Widgets/form_item.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -29,24 +30,10 @@ class _UpdateCourseState extends State<UpdateCourse> {
       Validators.required,
       Validators.minLength(2),
     ], touched: false),
-    'minQuantity': FormControl(validators: [
-      Validators.number,
-      Validators.required,
-    ], touched: false),
-    'maxQuantity': FormControl(validators: [
-      Validators.number,
-      Validators.required,
-    ], touched: false),
     'location': FormControl(validators: [
       Validators.required,
       Validators.minLength(2),
     ], touched: false),
-    'startDate': FormControl<DateTime>(
-        validators: [Validators.required], touched: false),
-    'finishDate': FormControl<DateTime>(
-        validators: [Validators.required], touched: false),
-    'startDate': FormControl<DateTime>(
-        validators: [Validators.required], touched: false),
   });
 
   @override
@@ -58,11 +45,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
     if (course != null) {
       form.value = {
         "name": course.name,
-        "minQuantity": course.minQuantity.toString(),
-        "maxQuantity": course.maxQuantity.toString(),
         "description": course.description,
-        "startDate": course.startDate,
-        "finishDate": course.finishDate,
         "location": course.location,
       };
     }
@@ -71,7 +54,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
   @override
   Widget build(BuildContext context) {
     return ScopedModel(
-      model: AccountViewModel(),
+      model: CourseViewModel(),
       child: SafeArea(
         top: false,
         child: Scaffold(
@@ -105,35 +88,9 @@ class _UpdateCourseState extends State<UpdateCourse> {
                                 "description",
                               ),
                               FormItem(
-                                "Số lượng học viên tối thiểu",
-                                "012345678",
-                                "minQuantity",
-                                keyboardType: "number",
-                              ),
-                              FormItem(
-                                "Số lượng học viên tối đa",
-                                "012345678",
-                                "maxQuantity",
-                                keyboardType: "number",
-                              ),
-                              FormItem(
                                 "Nơi học",
                                 "vd: abc@gmail.com",
                                 "location",
-                              ),
-                              FormItem(
-                                "Ngày bắt đầu",
-                                "01/01/2000",
-                                "startDate",
-                                keyboardType: "datetime",
-                                fromYear: DateTime(1950),
-                              ),
-                              FormItem(
-                                "Ngày kết túc",
-                                "01/01/2000",
-                                "finishDate",
-                                keyboardType: "datetime",
-                                fromYear: DateTime(1950),
                               ),
                             ],
                           )),
@@ -143,7 +100,7 @@ class _UpdateCourseState extends State<UpdateCourse> {
                               curve: Curves.easeInOut,
                               margin: EdgeInsets.only(bottom: 8),
                               child: Center(
-                                child: ScopedModelDescendant<AccountViewModel>(
+                                child: ScopedModelDescendant<CourseViewModel>(
                                   builder: (context, child, model) =>
                                       RaisedButton(
                                     shape: RoundedRectangleBorder(
@@ -155,7 +112,8 @@ class _UpdateCourseState extends State<UpdateCourse> {
                                       if (model.status ==
                                           ViewStatus
                                               .Completed) if (form.valid) {
-                                        // await model.updateUser(form.value);
+                                        await model.updateCourse(
+                                            widget.course, form.value);
                                       }
                                     },
                                     child: Padding(

@@ -32,7 +32,7 @@ class FeatureItem extends StatelessWidget {
           // borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: shadowColor.withOpacity(0.1),
+              color: shadowColor.withOpacity(0.2),
               spreadRadius: 1,
               blurRadius: 1,
               offset: Offset(1, 1), // changes position of shadow
